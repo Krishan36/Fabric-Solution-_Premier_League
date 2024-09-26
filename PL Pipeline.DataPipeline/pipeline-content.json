@@ -1,0 +1,550 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "52630cd0-f821-453d-a797-8defe2f1e24c",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Check_LiveSources",
+        "dependsOn": []
+      },
+      {
+        "type": "SetVariable",
+        "typeProperties": {
+          "variableName": "Current_Value",
+          "value": {
+            "value": "@json(activity('Check_LiveSources').output.result.ExitValue)['current_count']\n\n",
+            "type": "Expression"
+          }
+        },
+        "policy": {
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Set Current Value",
+        "dependsOn": [
+          {
+            "activity": "Check_LiveSources",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "SetVariable",
+        "typeProperties": {
+          "variableName": "Live_Value",
+          "value": {
+            "value": "@json(activity('Check_LiveSources').output.result.ExitValue)['live_count']\n",
+            "type": "Expression"
+          }
+        },
+        "policy": {
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Set Live Value",
+        "dependsOn": [
+          {
+            "activity": "Check_LiveSources",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "SetVariable",
+        "typeProperties": {
+          "variableName": "Same_Home_Away",
+          "value": {
+            "value": "@json(activity('Check_LiveSources').output.result.ExitValue)['same_home_away']",
+            "type": "Expression"
+          }
+        },
+        "policy": {
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Set Same Home Away",
+        "dependsOn": [
+          {
+            "activity": "Check_LiveSources",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "SetVariable",
+        "typeProperties": {
+          "variableName": "Same_Schedule",
+          "value": {
+            "value": "@json(activity('Check_LiveSources').output.result.ExitValue)['same_schedule']",
+            "type": "Expression"
+          }
+        },
+        "policy": {
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Set Schedule Var",
+        "dependsOn": [
+          {
+            "activity": "Check_LiveSources",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "IfCondition",
+        "typeProperties": {
+          "expression": {
+            "value": "@and(\n    greaterOrEquals(variables('Current_Value'), variables('Live_Value')),\n    and(\n        equals(variables('Same_Home_Away'),'Yes'),\n        equals(variables('Same_Schedule'),'No')\n    )\n)\n\n",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "type": "RefreshDataflow",
+              "typeProperties": {
+                "dataflowId": "671011e9-e779-4aa4-bf46-8ba5be9f79c3",
+                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
+                "notifyOption": "NoNotification"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Refresh Schedule",
+              "dependsOn": []
+            },
+            {
+              "type": "TridentNotebook",
+              "typeProperties": {
+                "notebookId": "69ad2e14-e3c0-4ca0-96a2-55a56be1cb1d",
+                "workspaceId": "00000000-0000-0000-0000-000000000000"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Refresh Silver To Gold",
+              "dependsOn": [
+                {
+                  "activity": "Refresh Schedule",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "RefreshDataflow",
+              "typeProperties": {
+                "dataflowId": "dd75e036-c79c-45fa-9fd4-ea961d1a1a58",
+                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
+                "notifyOption": "NoNotification"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Refresh Gold To DW",
+              "dependsOn": [
+                {
+                  "activity": "Refresh Silver To Gold",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "PBISemanticModelRefresh",
+              "typeProperties": {
+                "method": "post",
+                "groupId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
+                "datasetId": "27e1d51b-81ab-4d49-9cdd-ad7625f0624f",
+                "commitMode": "Transactional",
+                "waitOnCompletion": true,
+                "operationType": "SemanticModelRefresh"
+              },
+              "externalReferences": {
+                "connection": "6048b578-4145-4440-b37e-f79f32cee69a"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Refresh Dashboard",
+              "dependsOn": [
+                {
+                  "activity": "Refresh Gold To DW",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            }
+          ],
+          "ifFalseActivities": []
+        },
+        "name": "Just Refresh Schedule",
+        "dependsOn": [
+          {
+            "activity": "Set Current Value",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Set Live Value",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Set Schedule Var",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Set Same Home Away",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "IfCondition",
+        "typeProperties": {
+          "expression": {
+            "value": "@and(\n    greater(variables('Live_Value'), variables('Current_Value')),\n    and(\n        equals(variables('Same_Home_Away'),'Yes'),\n        equals(variables('Same_Schedule'),'Yes')\n    )\n)\n\n",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "type": "RefreshDataflow",
+              "typeProperties": {
+                "dataflowId": "2ba008ff-b84d-4992-aa36-ea8fdc60db39",
+                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
+                "notifyOption": "NoNotification"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Refresh Current Season",
+              "dependsOn": []
+            },
+            {
+              "type": "TridentNotebook",
+              "typeProperties": {
+                "notebookId": "69ad2e14-e3c0-4ca0-96a2-55a56be1cb1d",
+                "workspaceId": "00000000-0000-0000-0000-000000000000"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Refresh Silver To Gold1",
+              "dependsOn": [
+                {
+                  "activity": "Refresh Current Season",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "RefreshDataflow",
+              "typeProperties": {
+                "dataflowId": "dd75e036-c79c-45fa-9fd4-ea961d1a1a58",
+                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
+                "notifyOption": "NoNotification"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Refresh Gold To DW1",
+              "dependsOn": [
+                {
+                  "activity": "Refresh Silver To Gold1",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "PBISemanticModelRefresh",
+              "typeProperties": {
+                "method": "post",
+                "groupId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
+                "datasetId": "27e1d51b-81ab-4d49-9cdd-ad7625f0624f",
+                "commitMode": "Transactional",
+                "waitOnCompletion": true,
+                "operationType": "SemanticModelRefresh"
+              },
+              "externalReferences": {
+                "connection": "6048b578-4145-4440-b37e-f79f32cee69a"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Refresh Dashboard1",
+              "dependsOn": [
+                {
+                  "activity": "Refresh Gold To DW1",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            }
+          ],
+          "ifFalseActivities": []
+        },
+        "name": "Just Refresh Current Season1",
+        "dependsOn": [
+          {
+            "activity": "Set Current Value",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Set Live Value",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Set Same Home Away",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Set Schedule Var",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "IfCondition",
+        "typeProperties": {
+          "expression": {
+            "value": "@and(\n    greater(variables('Live_Value'), variables('Current_Value')),\n    and(\n        equals(variables('Same_Home_Away'),'Yes'),\n        equals(variables('Same_Schedule'),'No')\n    )\n)\n\n",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "type": "RefreshDataflow",
+              "typeProperties": {
+                "dataflowId": "671011e9-e779-4aa4-bf46-8ba5be9f79c3",
+                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
+                "notifyOption": "NoNotification"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Refresh Schedule2",
+              "dependsOn": []
+            },
+            {
+              "type": "TridentNotebook",
+              "typeProperties": {
+                "notebookId": "69ad2e14-e3c0-4ca0-96a2-55a56be1cb1d",
+                "workspaceId": "00000000-0000-0000-0000-000000000000"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Refresh Silver To Gold2",
+              "dependsOn": [
+                {
+                  "activity": "Refresh Current Season2",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                },
+                {
+                  "activity": "Refresh Schedule2",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "RefreshDataflow",
+              "typeProperties": {
+                "dataflowId": "dd75e036-c79c-45fa-9fd4-ea961d1a1a58",
+                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
+                "notifyOption": "NoNotification"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Refresh Gold To DW2",
+              "dependsOn": [
+                {
+                  "activity": "Refresh Silver To Gold2",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "PBISemanticModelRefresh",
+              "typeProperties": {
+                "method": "post",
+                "groupId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
+                "datasetId": "27e1d51b-81ab-4d49-9cdd-ad7625f0624f",
+                "commitMode": "Transactional",
+                "waitOnCompletion": true,
+                "operationType": "SemanticModelRefresh"
+              },
+              "externalReferences": {
+                "connection": "6048b578-4145-4440-b37e-f79f32cee69a"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Refresh Dashboard2",
+              "dependsOn": [
+                {
+                  "activity": "Refresh Gold To DW2",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "RefreshDataflow",
+              "typeProperties": {
+                "dataflowId": "2ba008ff-b84d-4992-aa36-ea8fdc60db39",
+                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
+                "notifyOption": "NoNotification"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Refresh Current Season2",
+              "dependsOn": []
+            }
+          ],
+          "ifFalseActivities": []
+        },
+        "name": "Refresh Both Current Season And Schedule2",
+        "dependsOn": [
+          {
+            "activity": "Set Current Value",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Set Live Value",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Set Same Home Away",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Set Schedule Var",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ],
+    "variables": {
+      "Current_Value": {
+        "type": "Integer"
+      },
+      "Live_Value": {
+        "type": "Integer"
+      },
+      "Same_Home_Away": {
+        "type": "String"
+      },
+      "Same_Schedule": {
+        "type": "String"
+      }
+    }
+  }
+}
