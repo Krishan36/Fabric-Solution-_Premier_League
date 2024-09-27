@@ -8,22 +8,27 @@
 # META   },
 # META   "dependencies": {
 # META     "lakehouse": {
-# META       "default_lakehouse": "d2adfa13-c41e-476a-bd13-e44598122dbf",
-# META       "default_lakehouse_name": "Silver_PL",
-# META       "default_lakehouse_workspace_id": "c79766a3-4f30-43d3-942c-d1fa4e84b64d"
+# META       "default_lakehouse": "72ab087e-c6f4-40dd-8149-95bd9c8e5bb5",
+# META       "default_lakehouse_name": "Bronze_PL",
+# META       "default_lakehouse_workspace_id": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
+# META       "known_lakehouses": [
+# META         {
+# META           "id": "72ab087e-c6f4-40dd-8149-95bd9c8e5bb5"
+# META         }
+# META       ]
 # META     }
 # META   }
 # META }
 
 # CELL ********************
 
-# Load current season data from the Delta table
-df_current = spark.read.format("delta").table("Current_Season")
-current_count = df_current.count()
-
 # Import necessary libraries
 import pandas as pd
 import json
+
+
+# Load current season data from the Delta table
+df_current = spark.read.format("delta").table("Current_Season")
 
 # Define the URL of the CSV file
 csv_url = "https://www.football-data.co.uk/mmz4281/2425/E0.csv"
@@ -34,15 +39,15 @@ try:
     
     # Convert the pandas DataFrame to a Spark DataFrame
     df_live = spark.createDataFrame(pdf)
-    
 
+    # Perform a left anti-join to find rows in df_current that are not in df_live
+    missing_in_live = df_current.join(df_live, df_current.columns, how='left_anti')
 
-    # Count the number of records in the live data
-    live_count = df_live.count()
+    # Check if the result is empty
+    refreshcurrent = "No" if missing_in_live.count() == 0 else "Yes"
 
 except Exception as e:
-    # If an error occurs, set live_count to 0
-    live_count = 0
+    refreshcurrent = "No"
 
 
 
@@ -98,50 +103,39 @@ try:
     # Create the DataFrame with promoted headers
     df_html = pd.DataFrame(data, columns=headers)
 
-    # Keep only 'Home Team' and 'Away Team' columns
-    df_f = df_html[['Home Team', 'Away Team']]
+    # Convert to Spark DataFrame
+    df_live_sch = spark.createDataFrame(df_html)
 
-    # Display the final DataFrame (either valid data or blank)
-    df_filtered = spark.createDataFrame(df_f)
-    df_schedule = spark.read.format("delta").table("Raw_Current_Schedule")[['Home_Team', 'Away_Team']]
-    
-    # Rename columns in df_filtered to match df_schedule
-    df_filtered_renamed = df_filtered \
+    # Rename Home Team and Away Team columns
+    df_live_sch_renamed = df_live_sch \
     .withColumnRenamed('Home Team', 'Home_Team') \
     .withColumnRenamed('Away Team', 'Away_Team')
     
-    df_schedule_sorted = df_schedule.orderBy(['Home_Team', 'Away_Team'])
-    df_filtered_sorted = df_filtered_renamed.orderBy(['Home_Team', 'Away_Team'])
-    
-    # Check if the two sorted DataFrames are equivalent by collecting the data as lists for comparison
-    are_equal = df_filtered_sorted.collect() == df_schedule_sorted.collect()
-    
-    # Store the result in a variable
-    SameHomeAndAway = "Yes" if are_equal else "No"
+    # Load Data Stored In Bronze Layer
+    df_schedule = spark.read.format("delta").table("Raw_Current_Schedule")
 
-    df_f1 = df_html[['Date','Home Team', 'Away Team']]
-    df_filtered1 = spark.createDataFrame(df_f1)
+    # Compare Home_Team and Away_Team columns
+    df_schedule_HA = df_schedule[['Home_Team', 'Away_Team']]
+    df_live_HA = df_live_sch_renamed[['Home_Team','Away_Team']]
 
-    # Rename columns in df_filtered1 to match df_schedule1
-    df_filtered_renamed1 = df_filtered1 \
-    .withColumnRenamed('Date', 'Match_Date') \
-    .withColumnRenamed('Home Team', 'Home_Team') \
-    .withColumnRenamed('Away Team', 'Away_Team') \
-    .withColumn('Match_Date', to_date(to_timestamp(col('Match_Date'), 'dd/MM/yyyy HH:mm')))
-    
-    df_schedule1 = spark.read.format("delta").table("Raw_Current_Schedule")[['Match_Date','Home_Team', 'Away_Team']]
+    DifferentTeams = df_schedule_HA.join(df_live_HA, df_schedule_HA.columns, how='left_anti')
 
-    df_schedule_sorted1 = df_schedule1.orderBy(['Match_Date', 'Home_Team', 'Away_Team'])
-    df_filtered_sorted1 = df_filtered_renamed1.orderBy(['Match_Date', 'Home_Team', 'Away_Team'])
+    # Compare Date Home_Team and Away_Team columns
+    df_schedule_DHA = df_schedule[['Date', 'Home_Team', 'Away_Team']]
+    df_live_DHA = df_live_sch_renamed[['Date', 'Home_Team','Away_Team']]
 
-    # Check if the two sorted DataFrames are equivalent by collecting the data as lists for comparison
-    are_equal1 = df_filtered_sorted1.collect() == df_schedule_sorted1.collect()
+    changed_schedule = df_schedule_DHA.join(df_live_DHA, df_schedule_DHA.columns, how='left_anti')  
 
-    SameSchedule = "Yes" if are_equal1 else "No"
+    if DifferentTeams.count() == 0:
+        if changed_schedule.count() == 0:
+             refreshschedule = "No"
+        else:
+            refreshschedule = "Yes"
+    else:
+        refreshschedule = "No"
 
 except requests.exceptions.RequestException as e:
-    SameHomeAndAway = "No Data"
-    SameSchedule = "No Data"
+    refreshschedule = "No"
 
 # METADATA ********************
 
@@ -154,10 +148,8 @@ except requests.exceptions.RequestException as e:
 
 # Create the output JSON object
 output_json = {
-    "current_count": current_count,
-    "live_count": live_count,
-    "same_home_away": SameHomeAndAway,
-    "same_schedule": SameSchedule
+    "refresh_current": refreshcurrent,
+    "refresh_schedule": refreshschedule
 }
 
 # Convert the output to a JSON string and exit the notebook with the result

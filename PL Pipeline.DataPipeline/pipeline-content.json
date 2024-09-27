@@ -20,9 +20,9 @@
       {
         "type": "SetVariable",
         "typeProperties": {
-          "variableName": "Current_Value",
+          "variableName": "refresh_current",
           "value": {
-            "value": "@json(activity('Check_LiveSources').output.result.ExitValue)['current_count']\n\n",
+            "value": "@json(activity('Check_LiveSources').output.result.ExitValue)['refresh_current']\n\n",
             "type": "Expression"
           }
         },
@@ -30,7 +30,7 @@
           "secureInput": false,
           "secureOutput": false
         },
-        "name": "Set Current Value",
+        "name": "refreshcurrent",
         "dependsOn": [
           {
             "activity": "Check_LiveSources",
@@ -43,9 +43,9 @@
       {
         "type": "SetVariable",
         "typeProperties": {
-          "variableName": "Live_Value",
+          "variableName": "refresh_schedule",
           "value": {
-            "value": "@json(activity('Check_LiveSources').output.result.ExitValue)['live_count']\n",
+            "value": "@json(activity('Check_LiveSources').output.result.ExitValue)['refresh_schedule']\n",
             "type": "Expression"
           }
         },
@@ -53,53 +53,7 @@
           "secureInput": false,
           "secureOutput": false
         },
-        "name": "Set Live Value",
-        "dependsOn": [
-          {
-            "activity": "Check_LiveSources",
-            "dependencyConditions": [
-              "Succeeded"
-            ]
-          }
-        ]
-      },
-      {
-        "type": "SetVariable",
-        "typeProperties": {
-          "variableName": "Same_Home_Away",
-          "value": {
-            "value": "@json(activity('Check_LiveSources').output.result.ExitValue)['same_home_away']",
-            "type": "Expression"
-          }
-        },
-        "policy": {
-          "secureInput": false,
-          "secureOutput": false
-        },
-        "name": "Set Same Home Away",
-        "dependsOn": [
-          {
-            "activity": "Check_LiveSources",
-            "dependencyConditions": [
-              "Succeeded"
-            ]
-          }
-        ]
-      },
-      {
-        "type": "SetVariable",
-        "typeProperties": {
-          "variableName": "Same_Schedule",
-          "value": {
-            "value": "@json(activity('Check_LiveSources').output.result.ExitValue)['same_schedule']",
-            "type": "Expression"
-          }
-        },
-        "policy": {
-          "secureInput": false,
-          "secureOutput": false
-        },
-        "name": "Set Schedule Var",
+        "name": "refreshschedule",
         "dependsOn": [
           {
             "activity": "Check_LiveSources",
@@ -113,7 +67,7 @@
         "type": "IfCondition",
         "typeProperties": {
           "expression": {
-            "value": "@and(\n    greaterOrEquals(variables('Current_Value'), variables('Live_Value')),\n    and(\n        equals(variables('Same_Home_Away'),'Yes'),\n        equals(variables('Same_Schedule'),'No')\n    )\n)\n\n",
+            "value": "@and(equals(variables('refresh_schedule'),'Yes'),\n        equals(variables('refresh_current'),'No')\n    )\n\n\n",
             "type": "Expression"
           },
           "ifTrueActivities": [
@@ -147,10 +101,10 @@
                 "secureInput": false,
                 "secureOutput": false
               },
-              "name": "Refresh Silver To Gold",
+              "name": "Refresh Silver 1 To Silver 2",
               "dependsOn": [
                 {
-                  "activity": "Refresh Schedule",
+                  "activity": "Refresh Bronze to Silver 1",
                   "dependencyConditions": [
                     "Succeeded"
                   ]
@@ -171,10 +125,10 @@
                 "secureInput": false,
                 "secureOutput": false
               },
-              "name": "Refresh Gold To DW",
+              "name": "Refresh Silver 2 to Gold",
               "dependsOn": [
                 {
-                  "activity": "Refresh Silver To Gold",
+                  "activity": "Refresh Silver 1 To Silver 2",
                   "dependencyConditions": [
                     "Succeeded"
                   ]
@@ -204,7 +158,31 @@
               "name": "Refresh Dashboard",
               "dependsOn": [
                 {
-                  "activity": "Refresh Gold To DW",
+                  "activity": "Refresh Silver 2 to Gold",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "RefreshDataflow",
+              "typeProperties": {
+                "dataflowId": "de48256e-6b47-4c59-be91-4dddba80a658",
+                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
+                "notifyOption": "NoNotification"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Refresh Bronze to Silver 1",
+              "dependsOn": [
+                {
+                  "activity": "Refresh Schedule",
                   "dependencyConditions": [
                     "Succeeded"
                   ]
@@ -217,25 +195,13 @@
         "name": "Just Refresh Schedule",
         "dependsOn": [
           {
-            "activity": "Set Current Value",
+            "activity": "refreshcurrent",
             "dependencyConditions": [
               "Succeeded"
             ]
           },
           {
-            "activity": "Set Live Value",
-            "dependencyConditions": [
-              "Succeeded"
-            ]
-          },
-          {
-            "activity": "Set Schedule Var",
-            "dependencyConditions": [
-              "Succeeded"
-            ]
-          },
-          {
-            "activity": "Set Same Home Away",
+            "activity": "refreshschedule",
             "dependencyConditions": [
               "Succeeded"
             ]
@@ -246,7 +212,7 @@
         "type": "IfCondition",
         "typeProperties": {
           "expression": {
-            "value": "@and(\n    greater(variables('Live_Value'), variables('Current_Value')),\n    and(\n        equals(variables('Same_Home_Away'),'Yes'),\n        equals(variables('Same_Schedule'),'Yes')\n    )\n)\n\n",
+            "value": "@and(equals(variables('refresh_schedule'),'No'),\n        equals(variables('refresh_current'),'Yes')\n    )\n\n\n\n",
             "type": "Expression"
           },
           "ifTrueActivities": [
@@ -280,10 +246,10 @@
                 "secureInput": false,
                 "secureOutput": false
               },
-              "name": "Refresh Silver To Gold1",
+              "name": "a_Refresh Silver 1 To Silver 2",
               "dependsOn": [
                 {
-                  "activity": "Refresh Current Season",
+                  "activity": "a_Refresh Bronze to Silver 1",
                   "dependencyConditions": [
                     "Succeeded"
                   ]
@@ -304,10 +270,10 @@
                 "secureInput": false,
                 "secureOutput": false
               },
-              "name": "Refresh Gold To DW1",
+              "name": "a_Refresh Silver 2 to Gold",
               "dependsOn": [
                 {
-                  "activity": "Refresh Silver To Gold1",
+                  "activity": "a_Refresh Silver 1 To Silver 2",
                   "dependencyConditions": [
                     "Succeeded"
                   ]
@@ -337,7 +303,31 @@
               "name": "Refresh Dashboard1",
               "dependsOn": [
                 {
-                  "activity": "Refresh Gold To DW1",
+                  "activity": "a_Refresh Silver 2 to Gold",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "RefreshDataflow",
+              "typeProperties": {
+                "dataflowId": "de48256e-6b47-4c59-be91-4dddba80a658",
+                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
+                "notifyOption": "NoNotification"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "a_Refresh Bronze to Silver 1",
+              "dependsOn": [
+                {
+                  "activity": "Refresh Current Season",
                   "dependencyConditions": [
                     "Succeeded"
                   ]
@@ -347,28 +337,16 @@
           ],
           "ifFalseActivities": []
         },
-        "name": "Just Refresh Current Season1",
+        "name": "Just Refresh Current Season",
         "dependsOn": [
           {
-            "activity": "Set Current Value",
+            "activity": "refreshcurrent",
             "dependencyConditions": [
               "Succeeded"
             ]
           },
           {
-            "activity": "Set Live Value",
-            "dependencyConditions": [
-              "Succeeded"
-            ]
-          },
-          {
-            "activity": "Set Same Home Away",
-            "dependencyConditions": [
-              "Succeeded"
-            ]
-          },
-          {
-            "activity": "Set Schedule Var",
+            "activity": "refreshschedule",
             "dependencyConditions": [
               "Succeeded"
             ]
@@ -379,7 +357,7 @@
         "type": "IfCondition",
         "typeProperties": {
           "expression": {
-            "value": "@and(\n    greater(variables('Live_Value'), variables('Current_Value')),\n    and(\n        equals(variables('Same_Home_Away'),'Yes'),\n        equals(variables('Same_Schedule'),'No')\n    )\n)\n\n",
+            "value": "@and(equals(variables('refresh_schedule'),'Yes'),\n        equals(variables('refresh_current'),'Yes')\n    )\n\n\n",
             "type": "Expression"
           },
           "ifTrueActivities": [
@@ -413,16 +391,10 @@
                 "secureInput": false,
                 "secureOutput": false
               },
-              "name": "Refresh Silver To Gold2",
+              "name": "b_Refresh Silver 1 To Silver 2",
               "dependsOn": [
                 {
-                  "activity": "Refresh Current Season2",
-                  "dependencyConditions": [
-                    "Succeeded"
-                  ]
-                },
-                {
-                  "activity": "Refresh Schedule2",
+                  "activity": "b_Refresh Bronze To Silver 1",
                   "dependencyConditions": [
                     "Succeeded"
                   ]
@@ -443,10 +415,10 @@
                 "secureInput": false,
                 "secureOutput": false
               },
-              "name": "Refresh Gold To DW2",
+              "name": "b_Refresh Silver 2 To Gold",
               "dependsOn": [
                 {
-                  "activity": "Refresh Silver To Gold2",
+                  "activity": "b_Refresh Silver 1 To Silver 2",
                   "dependencyConditions": [
                     "Succeeded"
                   ]
@@ -476,7 +448,7 @@
               "name": "Refresh Dashboard2",
               "dependsOn": [
                 {
-                  "activity": "Refresh Gold To DW2",
+                  "activity": "b_Refresh Silver 2 To Gold",
                   "dependencyConditions": [
                     "Succeeded"
                   ]
@@ -499,6 +471,36 @@
               },
               "name": "Refresh Current Season2",
               "dependsOn": []
+            },
+            {
+              "type": "RefreshDataflow",
+              "typeProperties": {
+                "dataflowId": "de48256e-6b47-4c59-be91-4dddba80a658",
+                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
+                "notifyOption": "NoNotification"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "b_Refresh Bronze To Silver 1",
+              "dependsOn": [
+                {
+                  "activity": "Refresh Schedule2",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                },
+                {
+                  "activity": "Refresh Current Season2",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
             }
           ],
           "ifFalseActivities": []
@@ -506,25 +508,13 @@
         "name": "Refresh Both Current Season And Schedule2",
         "dependsOn": [
           {
-            "activity": "Set Current Value",
+            "activity": "refreshcurrent",
             "dependencyConditions": [
               "Succeeded"
             ]
           },
           {
-            "activity": "Set Live Value",
-            "dependencyConditions": [
-              "Succeeded"
-            ]
-          },
-          {
-            "activity": "Set Same Home Away",
-            "dependencyConditions": [
-              "Succeeded"
-            ]
-          },
-          {
-            "activity": "Set Schedule Var",
+            "activity": "refreshschedule",
             "dependencyConditions": [
               "Succeeded"
             ]
@@ -533,16 +523,10 @@
       }
     ],
     "variables": {
-      "Current_Value": {
-        "type": "Integer"
-      },
-      "Live_Value": {
-        "type": "Integer"
-      },
-      "Same_Home_Away": {
+      "refresh_current": {
         "type": "String"
       },
-      "Same_Schedule": {
+      "refresh_schedule": {
         "type": "String"
       }
     }
