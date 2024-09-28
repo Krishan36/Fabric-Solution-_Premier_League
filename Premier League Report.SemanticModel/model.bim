@@ -8,7 +8,7 @@
       },
       {
         "name": "PBIDesktopVersion",
-        "value": "2.135.7627.0 (24.08)"
+        "value": "2.136.1202.0 (24.09)"
       },
       {
         "name": "PBI_QueryOrder",
@@ -446,6 +446,122 @@
                       "State": "Suggested",
                       "Type": "Noun",
                       "Weight": 0.474
+                    }
+                  }
+                ]
+              },
+              "calendar.last_updated": {
+                "Definition": {
+                  "Binding": {
+                    "ConceptualEntity": "Dim Calendar",
+                    "ConceptualProperty": "Last Updated"
+                  }
+                },
+                "State": "Generated",
+                "Terms": [
+                  {
+                    "last updated": {
+                      "State": "Generated"
+                    }
+                  },
+                  {
+                    "end updated": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.727
+                    }
+                  },
+                  {
+                    "final updated": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.727
+                    }
+                  },
+                  {
+                    "closing updated": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.727
+                    }
+                  },
+                  {
+                    "concluding updated": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.727
+                    }
+                  },
+                  {
+                    "finishing updated": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.727
+                    }
+                  },
+                  {
+                    "former updated": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.727
+                    }
+                  },
+                  {
+                    "latest updated": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.727
+                    }
+                  },
+                  {
+                    "latter updated": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.727
+                    }
+                  },
+                  {
+                    "past updated": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.727
+                    }
+                  },
+                  {
+                    "remaining updated": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.727
                     }
                   }
                 ]
@@ -1969,6 +2085,16 @@
                       "State": "Suggested",
                       "Weight": 0.9
                     }
+                  },
+                  {
+                    ".": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
                   }
                 ]
               },
@@ -2662,6 +2788,16 @@
                       "State": "Suggested",
                       "Weight": 0.9
                     }
+                  },
+                  {
+                    "..": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
                   }
                 ]
               },
@@ -2714,12 +2850,6 @@
                     }
                   },
                   {
-                    "match result": {
-                      "State": "Generated",
-                      "Weight": 0.97
-                    }
-                  },
-                  {
                     "dim match consequence": {
                       "Source": {
                         "Agent": "Thesaurus"
@@ -2760,46 +2890,6 @@
                     }
                   },
                   {
-                    "match consequence": {
-                      "Source": {
-                        "Agent": "Thesaurus"
-                      },
-                      "State": "Suggested",
-                      "Type": "Noun",
-                      "Weight": 0.5
-                    }
-                  },
-                  {
-                    "match outcome": {
-                      "Source": {
-                        "Agent": "Thesaurus"
-                      },
-                      "State": "Suggested",
-                      "Type": "Noun",
-                      "Weight": 0.5
-                    }
-                  },
-                  {
-                    "match upshot": {
-                      "Source": {
-                        "Agent": "Thesaurus"
-                      },
-                      "State": "Suggested",
-                      "Type": "Noun",
-                      "Weight": 0.5
-                    }
-                  },
-                  {
-                    "match product": {
-                      "Source": {
-                        "Agent": "Thesaurus"
-                      },
-                      "State": "Suggested",
-                      "Type": "Noun",
-                      "Weight": 0.5
-                    }
-                  },
-                  {
                     "dim match effect": {
                       "Source": {
                         "Agent": "Thesaurus"
@@ -2817,6 +2907,46 @@
                       "State": "Suggested",
                       "Type": "Noun",
                       "Weight": 0.492
+                    }
+                  },
+                  {
+                    "consequence": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.491
+                    }
+                  },
+                  {
+                    "outcome": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.491
+                    }
+                  },
+                  {
+                    "upshot": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.491
+                    }
+                  },
+                  {
+                    "product": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.491
                     }
                   }
                 ]
@@ -3707,6 +3837,16 @@
                       "Type": "Noun",
                       "Weight": 0.474
                     }
+                  },
+                  {
+                    "Conceded": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
                   }
                 ]
               },
@@ -3830,6 +3970,16 @@
                       "Type": "Noun",
                       "Weight": 0.474
                     }
+                  },
+                  {
+                    "Conceded": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
                   }
                 ]
               },
@@ -3952,6 +4102,16 @@
                       "State": "Suggested",
                       "Type": "Noun",
                       "Weight": 0.474
+                    }
+                  },
+                  {
+                    "Conceded": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
                     }
                   }
                 ]
@@ -4610,6 +4770,16 @@
                       "Type": "Noun",
                       "Weight": 0.474
                     }
+                  },
+                  {
+                    "Scored": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
                   }
                 ]
               },
@@ -4732,6 +4902,16 @@
                       "State": "Suggested",
                       "Type": "Noun",
                       "Weight": 0.474
+                    }
+                  },
+                  {
+                    "Scored": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
                     }
                   }
                 ]
@@ -4856,6 +5036,16 @@
                       "Type": "Noun",
                       "Weight": 0.474
                     }
+                  },
+                  {
+                    "Scored": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
                   }
                 ]
               },
@@ -4979,6 +5169,16 @@
                       "Type": "Noun",
                       "Weight": 0.468
                     }
+                  },
+                  {
+                    "S/C": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
                   }
                 ]
               },
@@ -5018,6 +5218,90 @@
                     "more home goals)": {
                       "State": "Generated",
                       "Weight": 0.97
+                    }
+                  }
+                ]
+              },
+              "goalsconceded.number_1_or_more_away_goals": {
+                "Definition": {
+                  "Binding": {
+                    "ConceptualEntity": "GoalsConceded",
+                    "ConceptualProperty": "Number (1 or more Away Goals)"
+                  }
+                },
+                "State": "Generated",
+                "Terms": [
+                  {
+                    "Games (Away Team Scores)": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
+                  }
+                ]
+              },
+              "goalsconceded.percentage_1_or_more_away_goals": {
+                "Definition": {
+                  "Binding": {
+                    "ConceptualEntity": "GoalsConceded",
+                    "ConceptualProperty": "Percentage (1 or more Away Goals)"
+                  }
+                },
+                "State": "Generated",
+                "Terms": [
+                  {
+                    "Games % (Away Team Scores)": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
+                  }
+                ]
+              },
+              "goalsscored.number_1_or_more_home_goals": {
+                "Definition": {
+                  "Binding": {
+                    "ConceptualEntity": "GoalsScored",
+                    "ConceptualProperty": "Number (1 or more Home Goals)"
+                  }
+                },
+                "State": "Generated",
+                "Terms": [
+                  {
+                    "Games (Home Team Scores)": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
+                  }
+                ]
+              },
+              "goalsscored.percentage_1_or_more_home_goals": {
+                "Definition": {
+                  "Binding": {
+                    "ConceptualEntity": "GoalsScored",
+                    "ConceptualProperty": "Percentage (1 or more Home Goals)"
+                  }
+                },
+                "State": "Generated",
+                "Terms": [
+                  {
+                    "Games % (Home Team Scores)": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
                     }
                   }
                 ]
@@ -6165,12 +6449,6 @@
                     }
                   },
                   {
-                    "draw": {
-                      "State": "Generated",
-                      "Weight": 0.97
-                    }
-                  },
-                  {
                     "away attraction": {
                       "Source": {
                         "Agent": "Thesaurus"
@@ -6221,53 +6499,53 @@
                     }
                   },
                   {
-                    "attraction": {
+                    "away lure": {
                       "Source": {
                         "Agent": "Thesaurus"
                       },
                       "State": "Suggested",
                       "Type": "Noun",
-                      "Weight": 0.491
+                      "Weight": 0.485
                     }
                   },
                   {
-                    "magnet": {
+                    "away pull": {
                       "Source": {
                         "Agent": "Thesaurus"
                       },
                       "State": "Suggested",
                       "Type": "Noun",
-                      "Weight": 0.491
+                      "Weight": 0.485
                     }
                   },
                   {
-                    "inducement": {
+                    "away appeal": {
                       "Source": {
                         "Agent": "Thesaurus"
                       },
                       "State": "Suggested",
                       "Type": "Noun",
-                      "Weight": 0.491
+                      "Weight": 0.485
                     }
                   },
                   {
-                    "enticement": {
+                    "away tie": {
                       "Source": {
                         "Agent": "Thesaurus"
                       },
                       "State": "Suggested",
                       "Type": "Noun",
-                      "Weight": 0.491
+                      "Weight": 0.461
                     }
                   },
                   {
-                    "allurement": {
+                    "away stalemate": {
                       "Source": {
                         "Agent": "Thesaurus"
                       },
                       "State": "Suggested",
                       "Type": "Noun",
-                      "Weight": 0.491
+                      "Weight": 0.461
                     }
                   },
                   {
@@ -6297,12 +6575,6 @@
                     }
                   },
                   {
-                    "games": {
-                      "State": "Generated",
-                      "Weight": 0.97
-                    }
-                  },
-                  {
                     "away competition": {
                       "Source": {
                         "Agent": "Thesaurus"
@@ -6320,26 +6592,6 @@
                       "State": "Suggested",
                       "Type": "Noun",
                       "Weight": 0.5
-                    }
-                  },
-                  {
-                    "competition": {
-                      "Source": {
-                        "Agent": "Thesaurus"
-                      },
-                      "State": "Suggested",
-                      "Type": "Noun",
-                      "Weight": 0.491
-                    }
-                  },
-                  {
-                    "tournament": {
-                      "Source": {
-                        "Agent": "Thesaurus"
-                      },
-                      "State": "Suggested",
-                      "Type": "Noun",
-                      "Weight": 0.491
                     }
                   },
                   {
@@ -6383,23 +6635,43 @@
                     }
                   },
                   {
-                    "sport": {
+                    "away playoff": {
                       "Source": {
                         "Agent": "Thesaurus"
                       },
                       "State": "Suggested",
                       "Type": "Noun",
-                      "Weight": 0.476
+                      "Weight": 0.475
                     }
                   },
                   {
-                    "cup": {
+                    "away pastime": {
                       "Source": {
                         "Agent": "Thesaurus"
                       },
                       "State": "Suggested",
                       "Type": "Noun",
-                      "Weight": 0.476
+                      "Weight": 0.451
+                    }
+                  },
+                  {
+                    "away diversion": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.451
+                    }
+                  },
+                  {
+                    "away amusement": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.451
                     }
                   },
                   {
@@ -7015,6 +7287,16 @@
                       "State": "Generated",
                       "Weight": 0.75
                     }
+                  },
+                  {
+                    "Games % (Away Team Scores) (Trend)": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
                   }
                 ]
               },
@@ -7364,6 +7646,132 @@
                       "State": "Suggested",
                       "Type": "Noun",
                       "Weight": 0.479
+                    }
+                  }
+                ]
+              },
+              "premiership_table.both_teams_to_scored": {
+                "Definition": {
+                  "Binding": {
+                    "ConceptualEntity": "Fact Premier League",
+                    "ConceptualProperty": "Both Teams To Scored"
+                  }
+                },
+                "State": "Generated",
+                "Terms": [
+                  {
+                    "both teams to scored": {
+                      "State": "Generated"
+                    }
+                  },
+                  {
+                    "both player to scored": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.514
+                    }
+                  },
+                  {
+                    "both lineup to scored": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.514
+                    }
+                  },
+                  {
+                    "both side to scored": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.499
+                    }
+                  },
+                  {
+                    "both squad to scored": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.499
+                    }
+                  },
+                  {
+                    "both crew to scored": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.499
+                    }
+                  },
+                  {
+                    "both club to scored": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.499
+                    }
+                  },
+                  {
+                    "both unit to scored": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.489
+                    }
+                  },
+                  {
+                    "both group to scored": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.474
+                    }
+                  },
+                  {
+                    "both band to scored": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.474
+                    }
+                  },
+                  {
+                    "both panel to scored": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.474
+                    }
+                  },
+                  {
+                    "Both Teams To Score": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
                     }
                   }
                 ]
@@ -8048,6 +8456,132 @@
                   }
                 ]
               },
+              "premiership_table.draw": {
+                "Definition": {
+                  "Binding": {
+                    "ConceptualEntity": "Fact Premier League",
+                    "ConceptualProperty": "Draw"
+                  }
+                },
+                "State": "Generated",
+                "Terms": [
+                  {
+                    "draw": {
+                      "State": "Generated"
+                    }
+                  },
+                  {
+                    "attraction": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.491
+                    }
+                  },
+                  {
+                    "magnet": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.491
+                    }
+                  },
+                  {
+                    "inducement": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.491
+                    }
+                  },
+                  {
+                    "enticement": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.491
+                    }
+                  },
+                  {
+                    "allurement": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.491
+                    }
+                  },
+                  {
+                    "lure": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.476
+                    }
+                  },
+                  {
+                    "pull": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.476
+                    }
+                  },
+                  {
+                    "appeal": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.476
+                    }
+                  },
+                  {
+                    "tie": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.452
+                    }
+                  },
+                  {
+                    "stalemate": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.452
+                    }
+                  },
+                  {
+                    "Draws": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
+                  }
+                ]
+              },
               "premiership_table.draw_": {
                 "Definition": {
                   "Binding": {
@@ -8688,6 +9222,16 @@
                       "Type": "Noun",
                       "Weight": 0.451
                     }
+                  },
+                  {
+                    "Games": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
                   }
                 ]
               },
@@ -9144,6 +9688,26 @@
                       "Type": "Noun",
                       "Weight": 0.474
                     }
+                  },
+                  {
+                    "Conceded": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
+                  },
+                  {
+                    "Away Goals Per Game": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
                   }
                 ]
               },
@@ -9584,6 +10148,26 @@
                       "Type": "Noun",
                       "Weight": 0.474
                     }
+                  },
+                  {
+                    "Scored": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
+                  },
+                  {
+                    "Home Goals Per Game": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
                   }
                 ]
               },
@@ -9888,12 +10472,6 @@
                     }
                   },
                   {
-                    "games": {
-                      "State": "Generated",
-                      "Weight": 0.97
-                    }
-                  },
-                  {
                     "home competition": {
                       "Source": {
                         "Agent": "Thesaurus"
@@ -9911,26 +10489,6 @@
                       "State": "Suggested",
                       "Type": "Noun",
                       "Weight": 0.5
-                    }
-                  },
-                  {
-                    "competition": {
-                      "Source": {
-                        "Agent": "Thesaurus"
-                      },
-                      "State": "Suggested",
-                      "Type": "Noun",
-                      "Weight": 0.491
-                    }
-                  },
-                  {
-                    "tournament": {
-                      "Source": {
-                        "Agent": "Thesaurus"
-                      },
-                      "State": "Suggested",
-                      "Type": "Noun",
-                      "Weight": 0.491
                     }
                   },
                   {
@@ -9974,23 +10532,43 @@
                     }
                   },
                   {
-                    "sport": {
+                    "home playoff": {
                       "Source": {
                         "Agent": "Thesaurus"
                       },
                       "State": "Suggested",
                       "Type": "Noun",
-                      "Weight": 0.476
+                      "Weight": 0.475
                     }
                   },
                   {
-                    "cup": {
+                    "home pastime": {
                       "Source": {
                         "Agent": "Thesaurus"
                       },
                       "State": "Suggested",
                       "Type": "Noun",
-                      "Weight": 0.476
+                      "Weight": 0.451
+                    }
+                  },
+                  {
+                    "home diversion": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.451
+                    }
+                  },
+                  {
+                    "home amusement": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.451
                     }
                   },
                   {
@@ -10590,6 +11168,16 @@
                       "State": "Generated",
                       "Weight": 0.75
                     }
+                  },
+                  {
+                    "Games % (Home Team Scores) (Trend)": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
                   }
                 ]
               },
@@ -10913,6 +11501,132 @@
                       "State": "Suggested",
                       "Type": "Noun",
                       "Weight": 0.727
+                    }
+                  }
+                ]
+              },
+              "premiership_table.loss1": {
+                "Definition": {
+                  "Binding": {
+                    "ConceptualEntity": "Fact Premier League",
+                    "ConceptualProperty": "Loss"
+                  }
+                },
+                "State": "Generated",
+                "Terms": [
+                  {
+                    "loss": {
+                      "State": "Generated"
+                    }
+                  },
+                  {
+                    "injury": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.491
+                    }
+                  },
+                  {
+                    "forfeiture": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.491
+                    }
+                  },
+                  {
+                    "damage": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.476
+                    }
+                  },
+                  {
+                    "harm": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.476
+                    }
+                  },
+                  {
+                    "cost": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.476
+                    }
+                  },
+                  {
+                    "hurt": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.476
+                    }
+                  },
+                  {
+                    "failure": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.466
+                    }
+                  },
+                  {
+                    "defeat": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.452
+                    }
+                  },
+                  {
+                    "beating": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.452
+                    }
+                  },
+                  {
+                    "thrashing": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.452
+                    }
+                  },
+                  {
+                    "Losses": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
                     }
                   }
                 ]
@@ -17537,6 +18251,92 @@
                       "Type": "Noun",
                       "Weight": 0.489
                     }
+                  },
+                  {
+                    "Total": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
+                  }
+                ]
+              },
+              "premiership_table.win": {
+                "Definition": {
+                  "Binding": {
+                    "ConceptualEntity": "Fact Premier League",
+                    "ConceptualProperty": "Win"
+                  }
+                },
+                "State": "Generated",
+                "Terms": [
+                  {
+                    "win": {
+                      "State": "Generated"
+                    }
+                  },
+                  {
+                    "success": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.491
+                    }
+                  },
+                  {
+                    "landslide": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.491
+                    }
+                  },
+                  {
+                    "conquest": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.491
+                    }
+                  },
+                  {
+                    "victory": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.476
+                    }
+                  },
+                  {
+                    "triumph": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.476
+                    }
+                  },
+                  {
+                    "Wins": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
                   }
                 ]
               },
@@ -20225,27 +21025,6 @@
                   }
                 ]
               },
-              "teamtooltip.imageurl": {
-                "Definition": {
-                  "Binding": {
-                    "ConceptualEntity": "TeamToolTip",
-                    "ConceptualProperty": "ImageURL"
-                  }
-                },
-                "State": "Generated",
-                "Terms": [
-                  {
-                    "..": {
-                      "Source": {
-                        "Agent": "PowerBI.VisualColumnRename",
-                        "Type": "External"
-                      },
-                      "State": "Suggested",
-                      "Weight": 0.9
-                    }
-                  }
-                ]
-              },
               "tooltip_team_lookup": {
                 "Definition": {
                   "Binding": {
@@ -22631,6 +23410,16 @@
                       "State": "Generated",
                       "Weight": 0.97
                     }
+                  },
+                  {
+                    "Games %": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
                   }
                 ]
               },
@@ -22996,6 +23785,16 @@
                       "Type": "Noun",
                       "Weight": 0.452
                     }
+                  },
+                  {
+                    "Match Result": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
                   }
                 ]
               },
@@ -23204,6 +24003,39 @@
                   "calendar.has_A_result_date": {
                     "Target": {
                       "Entity": "calendar.has_A_result_date"
+                    }
+                  }
+                },
+                "State": "Generated"
+              },
+              "calendar_has_last_updated": {
+                "Binding": {
+                  "ConceptualEntity": "Dim Calendar"
+                },
+                "Phrasings": [
+                  {
+                    "Attribute": {
+                      "Object": {
+                        "Role": "calendar.last_updated"
+                      },
+                      "Subject": {
+                        "Role": "calendar"
+                      }
+                    },
+                    "ID": "dim_calendars_have_last_updated",
+                    "State": "Generated",
+                    "Weight": 0.99
+                  }
+                ],
+                "Roles": {
+                  "calendar": {
+                    "Target": {
+                      "Entity": "calendar"
+                    }
+                  },
+                  "calendar.last_updated": {
+                    "Target": {
+                      "Entity": "calendar.last_updated"
                     }
                   }
                 },
@@ -24659,72 +25491,6 @@
                 },
                 "State": "Generated"
               },
-              "match_number_has_draw_rank_cumulative_marker": {
-                "Binding": {
-                  "ConceptualEntity": "Dim Match Number"
-                },
-                "Phrasings": [
-                  {
-                    "Attribute": {
-                      "Object": {
-                        "Role": "match_number.draw_rank_cumulative_marker"
-                      },
-                      "Subject": {
-                        "Role": "match_number"
-                      }
-                    },
-                    "ID": "dim_match_numbers_have_draw_rank_cumulative_marker",
-                    "State": "Generated",
-                    "Weight": 0.99
-                  }
-                ],
-                "Roles": {
-                  "match_number": {
-                    "Target": {
-                      "Entity": "match_number"
-                    }
-                  },
-                  "match_number.draw_rank_cumulative_marker": {
-                    "Target": {
-                      "Entity": "match_number.draw_rank_cumulative_marker"
-                    }
-                  }
-                },
-                "State": "Generated"
-              },
-              "match_number_has_loss_rank_cumulative_marker": {
-                "Binding": {
-                  "ConceptualEntity": "Dim Match Number"
-                },
-                "Phrasings": [
-                  {
-                    "Attribute": {
-                      "Object": {
-                        "Role": "match_number.loss_rank_cumulative_marker"
-                      },
-                      "Subject": {
-                        "Role": "match_number"
-                      }
-                    },
-                    "ID": "dim_match_numbers_have_loss_rank_cumulative_marker",
-                    "State": "Generated",
-                    "Weight": 0.99
-                  }
-                ],
-                "Roles": {
-                  "match_number": {
-                    "Target": {
-                      "Entity": "match_number"
-                    }
-                  },
-                  "match_number.loss_rank_cumulative_marker": {
-                    "Target": {
-                      "Entity": "match_number.loss_rank_cumulative_marker"
-                    }
-                  }
-                },
-                "State": "Generated"
-              },
               "match_number_has_match_number": {
                 "Binding": {
                   "ConceptualEntity": "Dim Match Number"
@@ -24753,39 +25519,6 @@
                   "match_number.match_number": {
                     "Target": {
                       "Entity": "match_number.match_number"
-                    }
-                  }
-                },
-                "State": "Generated"
-              },
-              "match_number_has_win_rank_cumulative_marker": {
-                "Binding": {
-                  "ConceptualEntity": "Dim Match Number"
-                },
-                "Phrasings": [
-                  {
-                    "Attribute": {
-                      "Object": {
-                        "Role": "match_number.win_rank_cumulative_marker"
-                      },
-                      "Subject": {
-                        "Role": "match_number"
-                      }
-                    },
-                    "ID": "dim_match_numbers_have_win_rank_cumulative_marker",
-                    "State": "Generated",
-                    "Weight": 0.99
-                  }
-                ],
-                "Roles": {
-                  "match_number": {
-                    "Target": {
-                      "Entity": "match_number"
-                    }
-                  },
-                  "match_number.win_rank_cumulative_marker": {
-                    "Target": {
-                      "Entity": "match_number.win_rank_cumulative_marker"
                     }
                   }
                 },
@@ -25810,6 +26543,39 @@
                 },
                 "State": "Generated"
               },
+              "premiership_table_has_both_teams_to_scored": {
+                "Binding": {
+                  "ConceptualEntity": "Fact Premier League"
+                },
+                "Phrasings": [
+                  {
+                    "Attribute": {
+                      "Object": {
+                        "Role": "premiership_table.both_teams_to_scored"
+                      },
+                      "Subject": {
+                        "Role": "premiership_table"
+                      }
+                    },
+                    "ID": "fact_premier_leagues_have_both_teams_to_scored",
+                    "State": "Generated",
+                    "Weight": 0.99
+                  }
+                ],
+                "Roles": {
+                  "premiership_table": {
+                    "Target": {
+                      "Entity": "premiership_table"
+                    }
+                  },
+                  "premiership_table.both_teams_to_scored": {
+                    "Target": {
+                      "Entity": "premiership_table.both_teams_to_scored"
+                    }
+                  }
+                },
+                "State": "Generated"
+              },
               "premiership_table_has_calendar": {
                 "Binding": {
                   "ConceptualEntity": "Fact Premier League"
@@ -26438,6 +27204,39 @@
                   "premiership_table": {
                     "Target": {
                       "Entity": "premiership_table"
+                    }
+                  }
+                },
+                "State": "Generated"
+              },
+              "premiership_table_has_draw": {
+                "Binding": {
+                  "ConceptualEntity": "Fact Premier League"
+                },
+                "Phrasings": [
+                  {
+                    "Attribute": {
+                      "Object": {
+                        "Role": "premiership_table.draw"
+                      },
+                      "Subject": {
+                        "Role": "premiership_table"
+                      }
+                    },
+                    "ID": "fact_premier_leagues_have_draw",
+                    "State": "Generated",
+                    "Weight": 0.99
+                  }
+                ],
+                "Roles": {
+                  "premiership_table": {
+                    "Target": {
+                      "Entity": "premiership_table"
+                    }
+                  },
+                  "premiership_table.draw": {
+                    "Target": {
+                      "Entity": "premiership_table.draw"
                     }
                   }
                 },
@@ -27111,6 +27910,26 @@
                     "ID": "fact_premier_leagues_have_goal_conceded_per_game",
                     "State": "Generated",
                     "Weight": 0.99
+                  },
+                  {
+                    "Adjective": {
+                      "Adjectives": [
+                        {
+                          "Conceded": {
+                            "State": "Generated"
+                          }
+                        }
+                      ],
+                      "Measurement": {
+                        "Role": "premiership_table.goal_conceded_per_game"
+                      },
+                      "Subject": {
+                        "Role": "premiership_table"
+                      }
+                    },
+                    "ID": "goal_conceded_per_game_indicates_how_Conceded_fact_premier_leagues_are",
+                    "State": "Generated",
+                    "Weight": 0.99
                   }
                 ],
                 "Roles": {
@@ -27353,6 +28172,26 @@
                       }
                     },
                     "ID": "fact_premier_leagues_have_goal_scored_per_game",
+                    "State": "Generated",
+                    "Weight": 0.99
+                  },
+                  {
+                    "Adjective": {
+                      "Adjectives": [
+                        {
+                          "Scored": {
+                            "State": "Generated"
+                          }
+                        }
+                      ],
+                      "Measurement": {
+                        "Role": "premiership_table.goal_scored_per_game"
+                      },
+                      "Subject": {
+                        "Role": "premiership_table"
+                      }
+                    },
+                    "ID": "goal_scored_per_game_indicates_how_Scored_fact_premier_leagues_are",
                     "State": "Generated",
                     "Weight": 0.99
                   }
@@ -28287,7 +29126,7 @@
                         "Role": "premiership_table"
                       }
                     },
-                    "ID": "fact_premier_leagues_have_loss",
+                    "ID": "fact_premier_leagues_have_loss1",
                     "State": "Generated",
                     "Weight": 0.99
                   }
@@ -28301,6 +29140,39 @@
                   "premiership_table.loss": {
                     "Target": {
                       "Entity": "premiership_table.loss"
+                    }
+                  }
+                },
+                "State": "Generated"
+              },
+              "premiership_table_has_loss1": {
+                "Binding": {
+                  "ConceptualEntity": "Fact Premier League"
+                },
+                "Phrasings": [
+                  {
+                    "Attribute": {
+                      "Object": {
+                        "Role": "premiership_table.loss1"
+                      },
+                      "Subject": {
+                        "Role": "premiership_table"
+                      }
+                    },
+                    "ID": "fact_premier_leagues_have_loss",
+                    "State": "Generated",
+                    "Weight": 0.99
+                  }
+                ],
+                "Roles": {
+                  "premiership_table": {
+                    "Target": {
+                      "Entity": "premiership_table"
+                    }
+                  },
+                  "premiership_table.loss1": {
+                    "Target": {
+                      "Entity": "premiership_table.loss1"
                     }
                   }
                 },
@@ -28484,6 +29356,105 @@
                 },
                 "State": "Generated"
               },
+              "premiership_table_has_match_number_draw_rank_cumulative_marker": {
+                "Binding": {
+                  "ConceptualEntity": "Fact Premier League"
+                },
+                "Phrasings": [
+                  {
+                    "Attribute": {
+                      "Object": {
+                        "Role": "match_number.draw_rank_cumulative_marker"
+                      },
+                      "Subject": {
+                        "Role": "premiership_table"
+                      }
+                    },
+                    "ID": "fact_premier_leagues_have_draw_rank_cumulative_marker",
+                    "State": "Generated",
+                    "Weight": 0.99
+                  }
+                ],
+                "Roles": {
+                  "match_number.draw_rank_cumulative_marker": {
+                    "Target": {
+                      "Entity": "match_number.draw_rank_cumulative_marker"
+                    }
+                  },
+                  "premiership_table": {
+                    "Target": {
+                      "Entity": "premiership_table"
+                    }
+                  }
+                },
+                "State": "Generated"
+              },
+              "premiership_table_has_match_number_loss_rank_cumulative_marker": {
+                "Binding": {
+                  "ConceptualEntity": "Fact Premier League"
+                },
+                "Phrasings": [
+                  {
+                    "Attribute": {
+                      "Object": {
+                        "Role": "match_number.loss_rank_cumulative_marker"
+                      },
+                      "Subject": {
+                        "Role": "premiership_table"
+                      }
+                    },
+                    "ID": "fact_premier_leagues_have_loss_rank_cumulative_marker",
+                    "State": "Generated",
+                    "Weight": 0.99
+                  }
+                ],
+                "Roles": {
+                  "match_number.loss_rank_cumulative_marker": {
+                    "Target": {
+                      "Entity": "match_number.loss_rank_cumulative_marker"
+                    }
+                  },
+                  "premiership_table": {
+                    "Target": {
+                      "Entity": "premiership_table"
+                    }
+                  }
+                },
+                "State": "Generated"
+              },
+              "premiership_table_has_match_number_win_rank_cumulative_marker": {
+                "Binding": {
+                  "ConceptualEntity": "Fact Premier League"
+                },
+                "Phrasings": [
+                  {
+                    "Attribute": {
+                      "Object": {
+                        "Role": "match_number.win_rank_cumulative_marker"
+                      },
+                      "Subject": {
+                        "Role": "premiership_table"
+                      }
+                    },
+                    "ID": "fact_premier_leagues_have_win_rank_cumulative_marker",
+                    "State": "Generated",
+                    "Weight": 0.99
+                  }
+                ],
+                "Roles": {
+                  "match_number.win_rank_cumulative_marker": {
+                    "Target": {
+                      "Entity": "match_number.win_rank_cumulative_marker"
+                    }
+                  },
+                  "premiership_table": {
+                    "Target": {
+                      "Entity": "premiership_table"
+                    }
+                  }
+                },
+                "State": "Generated"
+              },
               "premiership_table_has_match_result_title": {
                 "Binding": {
                   "ConceptualEntity": "Fact Premier League"
@@ -28550,39 +29521,6 @@
                 },
                 "State": "Generated"
               },
-              "premiership_table_has_median_corners_in_match": {
-                "Binding": {
-                  "ConceptualEntity": "Fact Premier League"
-                },
-                "Phrasings": [
-                  {
-                    "Attribute": {
-                      "Object": {
-                        "Role": "premiership_table.median_corners_in_match"
-                      },
-                      "Subject": {
-                        "Role": "premiership_table"
-                      }
-                    },
-                    "ID": "fact_premier_leagues_have_median_corners_in_match",
-                    "State": "Generated",
-                    "Weight": 0.99
-                  }
-                ],
-                "Roles": {
-                  "premiership_table": {
-                    "Target": {
-                      "Entity": "premiership_table"
-                    }
-                  },
-                  "premiership_table.median_corners_in_match": {
-                    "Target": {
-                      "Entity": "premiership_table.median_corners_in_match"
-                    }
-                  }
-                },
-                "State": "Generated"
-              },
               "premiership_table_has_median_goals_in_match": {
                 "Binding": {
                   "ConceptualEntity": "Fact Premier League"
@@ -28611,72 +29549,6 @@
                   "premiership_table.median_goals_in_match": {
                     "Target": {
                       "Entity": "premiership_table.median_goals_in_match"
-                    }
-                  }
-                },
-                "State": "Generated"
-              },
-              "premiership_table_has_median_shots_in_match": {
-                "Binding": {
-                  "ConceptualEntity": "Fact Premier League"
-                },
-                "Phrasings": [
-                  {
-                    "Attribute": {
-                      "Object": {
-                        "Role": "premiership_table.median_shots_in_match"
-                      },
-                      "Subject": {
-                        "Role": "premiership_table"
-                      }
-                    },
-                    "ID": "fact_premier_leagues_have_median_shots_in_match",
-                    "State": "Generated",
-                    "Weight": 0.99
-                  }
-                ],
-                "Roles": {
-                  "premiership_table": {
-                    "Target": {
-                      "Entity": "premiership_table"
-                    }
-                  },
-                  "premiership_table.median_shots_in_match": {
-                    "Target": {
-                      "Entity": "premiership_table.median_shots_in_match"
-                    }
-                  }
-                },
-                "State": "Generated"
-              },
-              "premiership_table_has_median_shots_on_target_in_match": {
-                "Binding": {
-                  "ConceptualEntity": "Fact Premier League"
-                },
-                "Phrasings": [
-                  {
-                    "Attribute": {
-                      "Object": {
-                        "Role": "premiership_table.median_shots_on_target_in_match"
-                      },
-                      "Subject": {
-                        "Role": "premiership_table"
-                      }
-                    },
-                    "ID": "fact_premier_leagues_have_median_shots_on_target_in_match",
-                    "State": "Generated",
-                    "Weight": 0.99
-                  }
-                ],
-                "Roles": {
-                  "premiership_table": {
-                    "Target": {
-                      "Entity": "premiership_table"
-                    }
-                  },
-                  "premiership_table.median_shots_on_target_in_match": {
-                    "Target": {
-                      "Entity": "premiership_table.median_shots_on_target_in_match"
                     }
                   }
                 },
@@ -30898,39 +31770,6 @@
                 },
                 "State": "Generated"
               },
-              "premiership_table_has_total_corners_in_match_per_game": {
-                "Binding": {
-                  "ConceptualEntity": "Fact Premier League"
-                },
-                "Phrasings": [
-                  {
-                    "Attribute": {
-                      "Object": {
-                        "Role": "premiership_table.total_corners_in_match_per_game"
-                      },
-                      "Subject": {
-                        "Role": "premiership_table"
-                      }
-                    },
-                    "ID": "fact_premier_leagues_have_total_corners_in_match_per_game",
-                    "State": "Generated",
-                    "Weight": 0.99
-                  }
-                ],
-                "Roles": {
-                  "premiership_table": {
-                    "Target": {
-                      "Entity": "premiership_table"
-                    }
-                  },
-                  "premiership_table.total_corners_in_match_per_game": {
-                    "Target": {
-                      "Entity": "premiership_table.total_corners_in_match_per_game"
-                    }
-                  }
-                },
-                "State": "Generated"
-              },
               "premiership_table_has_total_draw_": {
                 "Binding": {
                   "ConceptualEntity": "Fact Premier League"
@@ -31091,72 +31930,6 @@
                   "premiership_table.total_goals_per_game": {
                     "Target": {
                       "Entity": "premiership_table.total_goals_per_game"
-                    }
-                  }
-                },
-                "State": "Generated"
-              },
-              "premiership_table_has_total_shots_in_match_per_game": {
-                "Binding": {
-                  "ConceptualEntity": "Fact Premier League"
-                },
-                "Phrasings": [
-                  {
-                    "Attribute": {
-                      "Object": {
-                        "Role": "premiership_table.total_shots_in_match_per_game"
-                      },
-                      "Subject": {
-                        "Role": "premiership_table"
-                      }
-                    },
-                    "ID": "fact_premier_leagues_have_total_shots_in_match_per_game",
-                    "State": "Generated",
-                    "Weight": 0.99
-                  }
-                ],
-                "Roles": {
-                  "premiership_table": {
-                    "Target": {
-                      "Entity": "premiership_table"
-                    }
-                  },
-                  "premiership_table.total_shots_in_match_per_game": {
-                    "Target": {
-                      "Entity": "premiership_table.total_shots_in_match_per_game"
-                    }
-                  }
-                },
-                "State": "Generated"
-              },
-              "premiership_table_has_total_shots_on_target_in_match_per_game": {
-                "Binding": {
-                  "ConceptualEntity": "Fact Premier League"
-                },
-                "Phrasings": [
-                  {
-                    "Attribute": {
-                      "Object": {
-                        "Role": "premiership_table.total_shots_on_target_in_match_per_game"
-                      },
-                      "Subject": {
-                        "Role": "premiership_table"
-                      }
-                    },
-                    "ID": "fact_premier_leagues_have_total_shots_on_target_in_match_per_game",
-                    "State": "Generated",
-                    "Weight": 0.99
-                  }
-                ],
-                "Roles": {
-                  "premiership_table": {
-                    "Target": {
-                      "Entity": "premiership_table"
-                    }
-                  },
-                  "premiership_table.total_shots_on_target_in_match_per_game": {
-                    "Target": {
-                      "Entity": "premiership_table.total_shots_on_target_in_match_per_game"
                     }
                   }
                 },
@@ -31597,6 +32370,39 @@
                   "w_d_l.results_by_match_number_title": {
                     "Target": {
                       "Entity": "w_d_l.results_by_match_number_title"
+                    }
+                  }
+                },
+                "State": "Generated"
+              },
+              "premiership_table_has_win": {
+                "Binding": {
+                  "ConceptualEntity": "Fact Premier League"
+                },
+                "Phrasings": [
+                  {
+                    "Attribute": {
+                      "Object": {
+                        "Role": "premiership_table.win"
+                      },
+                      "Subject": {
+                        "Role": "premiership_table"
+                      }
+                    },
+                    "ID": "fact_premier_leagues_have_win",
+                    "State": "Generated",
+                    "Weight": 0.99
+                  }
+                ],
+                "Roles": {
+                  "premiership_table": {
+                    "Target": {
+                      "Entity": "premiership_table"
+                    }
+                  },
+                  "premiership_table.win": {
+                    "Target": {
+                      "Entity": "premiership_table.win"
                     }
                   }
                 },
@@ -33882,7 +34688,7 @@
                         "Role": "total_goal_in_match"
                       }
                     },
-                    "ID": "dim_match_goals_have_total_goal_in_match1",
+                    "ID": "dim_match_goals_have_total_goal_in_match",
                     "State": "Generated",
                     "Weight": 0.99
                   }
@@ -33896,90 +34702,6 @@
                   "total_goal_in_match.total_goal_in_match": {
                     "Target": {
                       "Entity": "total_goal_in_match.total_goal_in_match"
-                    }
-                  }
-                },
-                "State": "Generated"
-              },
-              "total_goal_in_match_has_total_goal_in_match1": {
-                "Binding": {
-                  "ConceptualEntity": "Dim Match Goals"
-                },
-                "Phrasings": [
-                  {
-                    "Attribute": {
-                      "Object": {
-                        "Role": "total_goal_in_match.total_goal_in_match1"
-                      },
-                      "Subject": {
-                        "Role": "total_goal_in_match"
-                      }
-                    },
-                    "ID": "dim_match_goals_have_total_goal_in_match",
-                    "State": "Generated",
-                    "Weight": 0.99
-                  },
-                  {
-                    "ID": "dim_match_goals_goal_in_total_goal_in_match",
-                    "State": "Generated",
-                    "Verb": {
-                      "PrepositionalPhrases": [
-                        {
-                          "Object": {
-                            "Role": "total_goal_in_match.total_goal_in_match1"
-                          },
-                          "Prepositions": [
-                            {
-                              "in": {
-                                "State": "Generated"
-                              }
-                            }
-                          ]
-                        }
-                      ],
-                      "Subject": {
-                        "Role": "total_goal_in_match"
-                      },
-                      "Verbs": [
-                        {
-                          "goal": {
-                            "State": "Generated"
-                          }
-                        }
-                      ]
-                    },
-                    "Weight": 0.95
-                  },
-                  {
-                    "ID": "dim_match_goals_are_in_total_goal_in_match",
-                    "Preposition": {
-                      "Object": {
-                        "Role": "total_goal_in_match.total_goal_in_match1"
-                      },
-                      "Prepositions": [
-                        {
-                          "in": {
-                            "State": "Generated"
-                          }
-                        }
-                      ],
-                      "Subject": {
-                        "Role": "total_goal_in_match"
-                      }
-                    },
-                    "State": "Generated",
-                    "Weight": 0.99
-                  }
-                ],
-                "Roles": {
-                  "total_goal_in_match": {
-                    "Target": {
-                      "Entity": "total_goal_in_match"
-                    }
-                  },
-                  "total_goal_in_match.total_goal_in_match1": {
-                    "Target": {
-                      "Entity": "total_goal_in_match.total_goal_in_match1"
                     }
                   }
                 },
@@ -37422,7 +38144,7 @@
           {
             "name": "Historical Team Performances (title)",
             "displayFolder": "Title",
-            "expression": "\"Historic Team Performances\"",
+            "expression": "\"Team Statisics\"",
             "lineageTag": "1b7a7590-9abb-43cf-810b-3f1ceec5ee8c"
           },
           {
@@ -37792,6 +38514,66 @@
             ],
             "formatString": "0",
             "lineageTag": "33dcccf4-8660-4d26-a936-e3b515f5c1eb"
+          },
+          {
+            "name": "Win",
+            "expression": [
+              "",
+              "VAR Number = [Wins]",
+              "VAR Perc = [Win %]",
+              "RETURN",
+              "IF(Number,",
+              "FORMAT(Number, \"#,###\")&\" (\"&",
+              "FORMAT( Perc, \"0%\")",
+              "&\")\",",
+              "\"\")"
+            ],
+            "lineageTag": "bbfa12ae-e0be-4e19-8076-f31f68a722d3"
+          },
+          {
+            "name": "Loss",
+            "expression": [
+              "",
+              "VAR Number = [Losses]",
+              "VAR Perc = [Loss%]",
+              "RETURN",
+              "IF(Number,",
+              "FORMAT(Number, \"#,###\")&\" (\"&",
+              "FORMAT( Perc, \"0%\")",
+              "&\")\",",
+              "\"\")"
+            ],
+            "lineageTag": "455d1c4d-7140-42cc-a9b3-1e27c79272d8"
+          },
+          {
+            "name": "Draw",
+            "expression": [
+              "",
+              "VAR Number = [Draws]",
+              "VAR Perc = [Draw %]",
+              "RETURN",
+              "IF(Number,",
+              "FORMAT(Number, \"#,###\")&\" (\"&",
+              "FORMAT( Perc, \"0%\")",
+              "&\")\",",
+              "\"\")"
+            ],
+            "lineageTag": "ad4d353c-fadd-4d3f-a275-accd3f9eff66"
+          },
+          {
+            "name": "Both Teams To Scored",
+            "expression": [
+              "",
+              "VAR Number = [Both Teams To Score]",
+              "VAR Perc = [Both Teams To Score %]",
+              "RETURN",
+              "IF(Number,",
+              "FORMAT(Number, \"#,###\")&\" (\"&",
+              "FORMAT( Perc, \"0%\")",
+              "&\")\",",
+              "\"\")"
+            ],
+            "lineageTag": "469ceb15-1dd9-42d0-adc3-676e93fe165c"
           }
         ],
         "partitions": [

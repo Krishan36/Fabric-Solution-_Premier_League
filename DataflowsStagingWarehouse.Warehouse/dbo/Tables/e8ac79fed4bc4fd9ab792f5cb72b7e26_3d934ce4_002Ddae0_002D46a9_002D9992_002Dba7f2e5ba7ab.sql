@@ -1,7 +1,7 @@
-CREATE TABLE [dbo].[4997565c354a46049720e8b8c75821e6_1c4ef5a3_002De39f_002D45c1_002Db0b2_002D215fdcc8fb17] (
+CREATE TABLE [dbo].[e8ac79fed4bc4fd9ab792f5cb72b7e26_3d934ce4_002Ddae0_002D46a9_002D9992_002Dba7f2e5ba7ab] (
 
-	[Column1] varchar(8000) NULL, 
-	[Column2] date NULL, 
+	[Column1] date NULL, 
+	[Column2] varchar(8000) NULL, 
 	[Column3] varchar(8000) NULL, 
 	[Column4] varchar(8000) NULL, 
 	[Column5] bigint NULL, 
