@@ -40,11 +40,15 @@ try:
     # Convert the pandas DataFrame to a Spark DataFrame
     df_live = spark.createDataFrame(pdf)
 
-    # Perform a left anti-join to find rows in df_current that are not in df_live
+    # Perform a left anti-join to find rows that are different between df_current and df_live
     missing_in_live = df_current.join(df_live, df_current.columns, how='left_anti')
+    missing_in_current = df_live.join(df_current, df_current.columns, how='left_anti')
 
     # Check if the result is empty
-    refreshcurrent = "No" if missing_in_live.count() == 0 else "Yes"
+    if missing_in_current.count() == 0 and missing_in_live.count() == 0:
+        refreshcurrent = "No"
+    else:
+        refreshcurrent = "Yes"
 
 except Exception as e:
     refreshcurrent = "No"
@@ -106,25 +110,21 @@ try:
     # Convert to Spark DataFrame
     df_live_sch = spark.createDataFrame(df_html)
 
-    # Rename Home Team and Away Team columns
-    df_live_sch_renamed = df_live_sch \
-    .withColumnRenamed('Home Team', 'Home_Team') \
-    .withColumnRenamed('Away Team', 'Away_Team')
-    
     # Load Data Stored In Bronze Layer
     df_schedule = spark.read.format("delta").table("Raw_Current_Schedule")
 
-    # Compare Home_Team and Away_Team columns
-    df_schedule_HA = df_schedule[['Home_Team', 'Away_Team']]
-    df_live_HA = df_live_sch_renamed[['Home_Team','Away_Team']]
+    DifferentTeams = df_schedule.join(
+    df_live_sch,
+    (df_schedule["Home_Team"] == df_live_sch["Home Team"]) & 
+    (df_schedule["Away_Team"] == df_live_sch["Away Team"]),
+    how='left_anti')
 
-    DifferentTeams = df_schedule_HA.join(df_live_HA, df_schedule_HA.columns, how='left_anti')
-
-    # Compare Date Home_Team and Away_Team columns
-    df_schedule_DHA = df_schedule[['Date', 'Home_Team', 'Away_Team']]
-    df_live_DHA = df_live_sch_renamed[['Date', 'Home_Team','Away_Team']]
-
-    changed_schedule = df_schedule_DHA.join(df_live_DHA, df_schedule_DHA.columns, how='left_anti')  
+    changed_schedule = df_schedule.join(
+    df_live_sch,
+    (df_schedule["Home_Team"] == df_live_sch["Home Team"]) & 
+    (df_schedule["Away_Team"] == df_live_sch["Away Team"]) &
+    (df_schedule["Date"] == df_live_sch["Date"]), 
+    how='left_anti')
 
     if DifferentTeams.count() == 0:
         if changed_schedule.count() == 0:

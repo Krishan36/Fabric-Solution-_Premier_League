@@ -9,7 +9,7 @@
 # META   "dependencies": {
 # META     "lakehouse": {
 # META       "default_lakehouse": "d2adfa13-c41e-476a-bd13-e44598122dbf",
-# META       "default_lakehouse_name": "Silver_PL",
+# META       "default_lakehouse_name": "Silver_PL_1",
 # META       "default_lakehouse_workspace_id": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
 # META       "known_lakehouses": [
 # META         {
@@ -17,6 +17,9 @@
 # META         },
 # META         {
 # META           "id": "b4551982-caff-4d16-b567-3c06ac8fa2a6"
+# META         },
+# META         {
+# META           "id": "72ab087e-c6f4-40dd-8149-95bd9c8e5bb5"
 # META         }
 # META       ]
 # META     }
@@ -123,8 +126,6 @@ unmapped_teams = distinct_teams.alias("dt").join(
     "left_anti"
 )
 
-
-
 # Check for any non-alphabetic values (to catch mixed types)
 display(unmapped_teams)
 
@@ -205,7 +206,6 @@ NotInLookup = df_teams.alias("look").join(
     F.col("look.Team") == F.col("tm.StandardName"),
     "left_anti"
 )
-
 
 display(NotInLookup)
 
@@ -329,7 +329,7 @@ from datetime import datetime
 # Define start and end dates for the calendar
 start_date =  df_cleaned_historical.agg(F.min("Match_Date")).collect()[0][0]
 end_date = df_cleaned_schedule.agg(F.max("Match_Date")).collect()[0][0]
-latest_match_date = datetime.today().date()
+latest_match_date = datetime.today().date() 
 
 # Create a DataFrame with a sequence of dates
 date_range = spark.range(0, (spark.sql(f"SELECT datediff('{end_date}', '{start_date}')").collect()[0][0] + 1)) \
