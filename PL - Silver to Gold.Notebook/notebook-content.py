@@ -17,9 +17,6 @@
 # META         },
 # META         {
 # META           "id": "b4551982-caff-4d16-b567-3c06ac8fa2a6"
-# META         },
-# META         {
-# META           "id": "72ab087e-c6f4-40dd-8149-95bd9c8e5bb5"
 # META         }
 # META       ]
 # META     }
