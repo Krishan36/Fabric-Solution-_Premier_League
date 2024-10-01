@@ -1,5 +1,0 @@
-CREATE TABLE [dbo].[f5ede925b15e45378f1059d14b0d3dfa_68d85d2d_002Ddb13_002D4ac5_002Da4bc_002D132ee53c136c] (
-
-	[Column1] bigint NULL
-);
-
