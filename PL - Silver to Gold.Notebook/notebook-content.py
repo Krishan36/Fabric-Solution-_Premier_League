@@ -328,6 +328,7 @@ start_date =  df_cleaned_historical.agg(F.min("Match_Date")).collect()[0][0]
 end_date = df_cleaned_schedule.agg(F.max("Match_Date")).collect()[0][0]
 latest_match_date = datetime.today().date() 
 
+
 # Create a DataFrame with a sequence of dates
 date_range = spark.range(0, (spark.sql(f"SELECT datediff('{end_date}', '{start_date}')").collect()[0][0] + 1)) \
     .select(expr(f"date_add('{start_date}', cast(id as int)) as date"))

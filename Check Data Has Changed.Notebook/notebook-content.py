@@ -26,8 +26,7 @@
 import pandas as pd
 import json
 
-
-# Load current season data from the Delta table
+# Load current season data from the Bronze Lakehouse
 df_current = spark.read.format("delta").table("Current_Season")
 
 # Define the URL of the CSV file
@@ -52,8 +51,6 @@ try:
 
 except Exception as e:
     refreshcurrent = "No"
-
-
 
 # METADATA ********************
 

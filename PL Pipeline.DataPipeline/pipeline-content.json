@@ -67,7 +67,7 @@
         "type": "IfCondition",
         "typeProperties": {
           "expression": {
-            "value": "@and(equals(variables('refresh_schedule'),'Yes'),\n        equals(variables('refresh_current'),'No')\n    )\n\n\n",
+            "value": "@equals(variables('refresh_schedule'),'Yes')\n\n\n",
             "type": "Expression"
           },
           "ifTrueActivities": [
@@ -87,107 +87,6 @@
               },
               "name": "Refresh Schedule",
               "dependsOn": []
-            },
-            {
-              "type": "TridentNotebook",
-              "typeProperties": {
-                "notebookId": "69ad2e14-e3c0-4ca0-96a2-55a56be1cb1d",
-                "workspaceId": "00000000-0000-0000-0000-000000000000"
-              },
-              "policy": {
-                "timeout": "0.12:00:00",
-                "retry": 0,
-                "retryIntervalInSeconds": 30,
-                "secureInput": false,
-                "secureOutput": false
-              },
-              "name": "Refresh Silver 1 To Silver 2",
-              "dependsOn": [
-                {
-                  "activity": "Refresh Bronze to Silver 1",
-                  "dependencyConditions": [
-                    "Succeeded"
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "RefreshDataflow",
-              "typeProperties": {
-                "dataflowId": "dd75e036-c79c-45fa-9fd4-ea961d1a1a58",
-                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
-                "notifyOption": "NoNotification"
-              },
-              "policy": {
-                "timeout": "0.12:00:00",
-                "retry": 0,
-                "retryIntervalInSeconds": 30,
-                "secureInput": false,
-                "secureOutput": false
-              },
-              "name": "Refresh Silver 2 to Gold",
-              "dependsOn": [
-                {
-                  "activity": "Refresh Silver 1 To Silver 2",
-                  "dependencyConditions": [
-                    "Succeeded"
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "PBISemanticModelRefresh",
-              "typeProperties": {
-                "method": "post",
-                "groupId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
-                "datasetId": "27e1d51b-81ab-4d49-9cdd-ad7625f0624f",
-                "commitMode": "Transactional",
-                "waitOnCompletion": true,
-                "operationType": "SemanticModelRefresh"
-              },
-              "externalReferences": {
-                "connection": "6048b578-4145-4440-b37e-f79f32cee69a"
-              },
-              "policy": {
-                "timeout": "0.12:00:00",
-                "retry": 0,
-                "retryIntervalInSeconds": 30,
-                "secureInput": false,
-                "secureOutput": false
-              },
-              "name": "Refresh Dashboard",
-              "dependsOn": [
-                {
-                  "activity": "Refresh Silver 2 to Gold",
-                  "dependencyConditions": [
-                    "Succeeded"
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "RefreshDataflow",
-              "typeProperties": {
-                "dataflowId": "de48256e-6b47-4c59-be91-4dddba80a658",
-                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
-                "notifyOption": "NoNotification"
-              },
-              "policy": {
-                "timeout": "0.12:00:00",
-                "retry": 0,
-                "retryIntervalInSeconds": 30,
-                "secureInput": false,
-                "secureOutput": false
-              },
-              "name": "Refresh Bronze to Silver 1",
-              "dependsOn": [
-                {
-                  "activity": "Refresh Schedule",
-                  "dependencyConditions": [
-                    "Succeeded"
-                  ]
-                }
-              ]
             }
           ],
           "ifFalseActivities": []
@@ -212,7 +111,7 @@
         "type": "IfCondition",
         "typeProperties": {
           "expression": {
-            "value": "@and(equals(variables('refresh_schedule'),'No'),\n        equals(variables('refresh_current'),'Yes')\n    )\n\n\n\n",
+            "value": "@equals(variables('refresh_current'),'Yes')\n\n\n\n",
             "type": "Expression"
           },
           "ifTrueActivities": [
@@ -232,107 +131,6 @@
               },
               "name": "Refresh Current Season",
               "dependsOn": []
-            },
-            {
-              "type": "TridentNotebook",
-              "typeProperties": {
-                "notebookId": "69ad2e14-e3c0-4ca0-96a2-55a56be1cb1d",
-                "workspaceId": "00000000-0000-0000-0000-000000000000"
-              },
-              "policy": {
-                "timeout": "0.12:00:00",
-                "retry": 0,
-                "retryIntervalInSeconds": 30,
-                "secureInput": false,
-                "secureOutput": false
-              },
-              "name": "a_Refresh Silver 1 To Silver 2",
-              "dependsOn": [
-                {
-                  "activity": "a_Refresh Bronze to Silver 1",
-                  "dependencyConditions": [
-                    "Succeeded"
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "RefreshDataflow",
-              "typeProperties": {
-                "dataflowId": "dd75e036-c79c-45fa-9fd4-ea961d1a1a58",
-                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
-                "notifyOption": "NoNotification"
-              },
-              "policy": {
-                "timeout": "0.12:00:00",
-                "retry": 0,
-                "retryIntervalInSeconds": 30,
-                "secureInput": false,
-                "secureOutput": false
-              },
-              "name": "a_Refresh Silver 2 to Gold",
-              "dependsOn": [
-                {
-                  "activity": "a_Refresh Silver 1 To Silver 2",
-                  "dependencyConditions": [
-                    "Succeeded"
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "PBISemanticModelRefresh",
-              "typeProperties": {
-                "method": "post",
-                "groupId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
-                "datasetId": "27e1d51b-81ab-4d49-9cdd-ad7625f0624f",
-                "commitMode": "Transactional",
-                "waitOnCompletion": true,
-                "operationType": "SemanticModelRefresh"
-              },
-              "externalReferences": {
-                "connection": "6048b578-4145-4440-b37e-f79f32cee69a"
-              },
-              "policy": {
-                "timeout": "0.12:00:00",
-                "retry": 0,
-                "retryIntervalInSeconds": 30,
-                "secureInput": false,
-                "secureOutput": false
-              },
-              "name": "Refresh Dashboard1",
-              "dependsOn": [
-                {
-                  "activity": "a_Refresh Silver 2 to Gold",
-                  "dependencyConditions": [
-                    "Succeeded"
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "RefreshDataflow",
-              "typeProperties": {
-                "dataflowId": "de48256e-6b47-4c59-be91-4dddba80a658",
-                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
-                "notifyOption": "NoNotification"
-              },
-              "policy": {
-                "timeout": "0.12:00:00",
-                "retry": 0,
-                "retryIntervalInSeconds": 30,
-                "secureInput": false,
-                "secureOutput": false
-              },
-              "name": "a_Refresh Bronze to Silver 1",
-              "dependsOn": [
-                {
-                  "activity": "Refresh Current Season",
-                  "dependencyConditions": [
-                    "Succeeded"
-                  ]
-                }
-              ]
             }
           ],
           "ifFalseActivities": []
@@ -357,164 +155,39 @@
         "type": "IfCondition",
         "typeProperties": {
           "expression": {
-            "value": "@and(equals(variables('refresh_schedule'),'Yes'),\n        equals(variables('refresh_current'),'Yes')\n    )\n\n\n",
+            "value": "@or(equals(variables('refresh_schedule'),'Yes'),equals(variables('refresh_current'),'Yes'))",
             "type": "Expression"
           },
           "ifTrueActivities": [
             {
-              "type": "RefreshDataflow",
+              "type": "ExecutePipeline",
               "typeProperties": {
-                "dataflowId": "671011e9-e779-4aa4-bf46-8ba5be9f79c3",
-                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
-                "notifyOption": "NoNotification"
-              },
-              "policy": {
-                "timeout": "0.12:00:00",
-                "retry": 0,
-                "retryIntervalInSeconds": 30,
-                "secureInput": false,
-                "secureOutput": false
-              },
-              "name": "Refresh Schedule2",
-              "dependsOn": []
-            },
-            {
-              "type": "TridentNotebook",
-              "typeProperties": {
-                "notebookId": "69ad2e14-e3c0-4ca0-96a2-55a56be1cb1d",
-                "workspaceId": "00000000-0000-0000-0000-000000000000"
-              },
-              "policy": {
-                "timeout": "0.12:00:00",
-                "retry": 0,
-                "retryIntervalInSeconds": 30,
-                "secureInput": false,
-                "secureOutput": false
-              },
-              "name": "b_Refresh Silver 1 To Silver 2",
-              "dependsOn": [
-                {
-                  "activity": "b_Refresh Bronze To Silver 1",
-                  "dependencyConditions": [
-                    "Succeeded"
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "RefreshDataflow",
-              "typeProperties": {
-                "dataflowId": "dd75e036-c79c-45fa-9fd4-ea961d1a1a58",
-                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
-                "notifyOption": "NoNotification"
-              },
-              "policy": {
-                "timeout": "0.12:00:00",
-                "retry": 0,
-                "retryIntervalInSeconds": 30,
-                "secureInput": false,
-                "secureOutput": false
-              },
-              "name": "b_Refresh Silver 2 To Gold",
-              "dependsOn": [
-                {
-                  "activity": "b_Refresh Silver 1 To Silver 2",
-                  "dependencyConditions": [
-                    "Succeeded"
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "PBISemanticModelRefresh",
-              "typeProperties": {
-                "method": "post",
-                "groupId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
-                "datasetId": "27e1d51b-81ab-4d49-9cdd-ad7625f0624f",
-                "commitMode": "Transactional",
-                "waitOnCompletion": true,
-                "operationType": "SemanticModelRefresh"
-              },
-              "externalReferences": {
-                "connection": "6048b578-4145-4440-b37e-f79f32cee69a"
-              },
-              "policy": {
-                "timeout": "0.12:00:00",
-                "retry": 0,
-                "retryIntervalInSeconds": 30,
-                "secureInput": false,
-                "secureOutput": false
-              },
-              "name": "Refresh Dashboard2",
-              "dependsOn": [
-                {
-                  "activity": "b_Refresh Silver 2 To Gold",
-                  "dependencyConditions": [
-                    "Succeeded"
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "RefreshDataflow",
-              "typeProperties": {
-                "dataflowId": "2ba008ff-b84d-4992-aa36-ea8fdc60db39",
-                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
-                "notifyOption": "NoNotification"
-              },
-              "policy": {
-                "timeout": "0.12:00:00",
-                "retry": 0,
-                "retryIntervalInSeconds": 30,
-                "secureInput": false,
-                "secureOutput": false
-              },
-              "name": "Refresh Current Season2",
-              "dependsOn": []
-            },
-            {
-              "type": "RefreshDataflow",
-              "typeProperties": {
-                "dataflowId": "de48256e-6b47-4c59-be91-4dddba80a658",
-                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
-                "notifyOption": "NoNotification"
-              },
-              "policy": {
-                "timeout": "0.12:00:00",
-                "retry": 0,
-                "retryIntervalInSeconds": 30,
-                "secureInput": false,
-                "secureOutput": false
-              },
-              "name": "b_Refresh Bronze To Silver 1",
-              "dependsOn": [
-                {
-                  "activity": "Refresh Schedule2",
-                  "dependencyConditions": [
-                    "Succeeded"
-                  ]
+                "pipeline": {
+                  "referenceName": "c88b3daa-734d-44d3-b4fc-fffae2673253",
+                  "type": "PipelineReference"
                 },
-                {
-                  "activity": "Refresh Current Season2",
-                  "dependencyConditions": [
-                    "Succeeded"
-                  ]
-                }
-              ]
+                "parameters": {},
+                "waitOnCompletion": true
+              },
+              "policy": {
+                "secureInput": false
+              },
+              "name": "Bronze To Gold",
+              "dependsOn": []
             }
           ],
           "ifFalseActivities": []
         },
-        "name": "Refresh Both Current Season And Schedule2",
+        "name": "Refresh Bronze To Gold",
         "dependsOn": [
           {
-            "activity": "refreshcurrent",
+            "activity": "Just Refresh Schedule",
             "dependencyConditions": [
               "Succeeded"
             ]
           },
           {
-            "activity": "refreshschedule",
+            "activity": "Just Refresh Current Season",
             "dependencyConditions": [
               "Succeeded"
             ]
