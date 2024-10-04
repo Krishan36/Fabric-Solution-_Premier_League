@@ -89,7 +89,7 @@ team_mapping = {
 team_mapping_data = [(team,) for team in team_mapping.keys()]
 team_mapping_df = spark.createDataFrame(team_mapping_data, ["Team"])
 
-# Load the tables
+# Load the Silver 1 tables
 df_schedule = spark.read.format("delta").table("Raw_Current_Schedule")
 df_historical = spark.read.format("delta").table("Historical_Seasons")
 df_current = spark.read.format("delta").table("Current_Season")
