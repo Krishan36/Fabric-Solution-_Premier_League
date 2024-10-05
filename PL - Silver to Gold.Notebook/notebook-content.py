@@ -23,71 +23,79 @@
 # META   }
 # META }
 
+# MARKDOWN ********************
+
+# ## **Step 1. Verify Team Names Against Expected Variations (Team Mapping)**
+
 # CELL ********************
-
-from pyspark.sql import functions as F
-
 
 # Define the team mapping dictionary
 team_mapping = {
-     "Arsenal": "Arsenal",
-    "Aston Villa": "Aston Villa",
-    "Barnsley": "Barnsley",
-    "Birmingham": "Birmingham City",
-    "Blackburn": "Blackburn Rovers",
-    "Blackpool": "Blackpool",
-    "Bolton": "Bolton",
-    "Bournemouth": "Bournemouth",
-    "Bradford": "Bradford",
-    "Brentford": "Brentford",
-    "Brighton": "Brighton and Hove Albion",
-    "Burnley": "Burnley",
-    "Cardiff": "Cardiff",
-    "Charlton": "Charlton",
-    "Chelsea": "Chelsea",
-    "Coventry": "Coventry",
-    "Crystal Palace": "Crystal Palace",
-    "Derby": "Derby County",
-    "Everton": "Everton",
-    "Fulham": "Fulham",
-    "Huddersfield": "Huddersfield",
-    "Hull": "Hull",
-    "Ipswich": "Ipswich",
-    "Leeds": "Leeds United",
-    "Leicester": "Leicester City",
-    "Liverpool": "Liverpool",
-    "Luton": "Luton Town",
-    "Man City": "Manchester City",
-    "Man United": "Manchester United",
-    "Man Utd": "Manchester United",
-    "Middlesbrough": "Middlesbrough",
-    "Newcastle": "Newcastle United",
-    "Norwich": "Norwich City",
-    "Nott'm Forest": "Nottingham Forest",
-    "Oldham": "Oldham",
-    "Portsmouth": "Portsmouth",
-    "QPR": "Queens Park Rangers",
-    "Reading": "Reading",
-    "Sheffield United": "Sheffield United",
-    "Sheffield Weds": "Sheffield Wednesday",
-    "Southampton": "Southampton",
-    "Stoke": "Stoke City",
-    "Sunderland": "Sunderland",
-    "Swansea": "Swansea City",
-    "Swindon": "Swindon",
-    "Tottenham": "Tottenham Hotspur",
-    "Spurs": "Tottenham Hotspur",
-    "Watford": "Watford",
-    "West Brom": "West Bromwich Albion",
-    "West Ham": "West Ham United",
-    "Wigan": "Wigan",
-    "Wimbledon": "Wimbledon",
-    "Wolves": "Wolverhampton Wanderers"
+    "Arsenal": ["Arsenal"],
+    "Aston Villa": ["Aston Villa"],
+    "Barnsley": ["Barnsley"],
+    "Birmingham City": ["Birmingham", "Birmingham City"],
+    "Blackburn Rovers": ["Blackburn", "Blackburn Rovers" ],
+    "Blackpool": ["Blackpool"],
+    "Bolton": ["Bolton"],
+    "Bournemouth": ["Bournemouth"],
+    "Bradford": ["Bradford"],
+    "Brentford": ["Brentford"],
+    "Brighton and Hove Albion": ["Brighton", "Brighton and Hove Albion"],
+    "Burnley": ["Burnley"],
+    "Cardiff": ["Cardiff"],
+    "Charlton": ["Charlton"],
+    "Chelsea": ["Chelsea"],
+    "Coventry": ["Coventry"],
+    "Crystal Palace": ["Crystal Palace"],
+    "Derby County": ["Derby", "Derby County"],
+    "Everton": ["Everton"],
+    "Fulham": ["Fulham"],
+    "Huddersfield": ["Huddersfield"],
+    "Hull": ["Hull"],
+    "Ipswich": ["Ipswich"],
+    "Leeds United": ["Leeds", "Leeds United"],
+    "Leicester City": ["Leicester", "Leicester City"],
+    "Liverpool": ["Liverpool"],
+    "Luton Town": ["Luton"],
+    "Manchester City": ["Man City", "Manchester City"],
+    "Manchester United": ["Man United", "Man Utd", "Manchester Utd"],
+    "Middlesbrough": ["Middlesbrough"],
+    "Newcastle United": ["Newcastle", "Newcastle United"],
+    "Norwich City": ["Norwich", "Norwich City"],
+    "Nottingham Forest": ["Nott'm Forest", "Nottingham Forest"],
+    "Oldham": ["Oldham"],
+    "Portsmouth": ["Portsmouth"],
+    "Queens Park Rangers": ["QPR", "Queens Park Rangers"],
+    "Reading": ["Reading"],
+    "Sheffield United": ["Sheffield United"],
+    "Sheffield Wednesday": ["Sheffield Weds", "Sheffield Wednesday"],
+    "Southampton": ["Southampton"],
+    "Stoke City": ["Stoke", "Stoke City"],
+    "Sunderland": ["Sunderland"],
+    "Swansea City": ["Swansea", "Swansea City"],
+    "Swindon": ["Swindon"],
+    "Tottenham Hotspur": ["Tottenham", "Spurs", "Tottenham Hotspur"],
+    "Watford": ["Watford"],
+    "West Bromwich Albion": ["West Brom", "West Bromwich Albion"],
+    "West Ham United": ["West Ham", "West Ham United"],
+    "Wigan": ["Wigan"],
+    "Wimbledon": ["Wimbledon"],
+    "Wolverhampton Wanderers": ["Wolves", "Wolverhampton Wanderers"]
 }
 
-# Convert team mapping to a DataFrame
-team_mapping_data = [(team,) for team in team_mapping.keys()]
-team_mapping_df = spark.createDataFrame(team_mapping_data, ["Team"])
+# Convert team mapping to a list of tuples (standard_name, variation)
+team_mapping_data = [(standard, variation) for standard, variations in team_mapping.items() for variation in variations]
+team_mapping_df = spark.createDataFrame(team_mapping_data, ["Standard_Team", "Variation"])
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
 
 # Load the Silver 1 tables
 df_schedule = spark.read.format("delta").table("Raw_Current_Schedule")
@@ -116,16 +124,6 @@ distinct_teams = (distinct_home_teams_schedule.union(distinct_away_teams_schedul
                                           .union(disitinct_penalised_teams)
                                           .distinct())
 
-# Anti-join with the team_mapping_df to find unmapped teams
-unmapped_teams = distinct_teams.alias("dt").join(
-    team_mapping_df.alias("tm"),
-    F.col("dt.Home_Team") == F.col("tm.Team"),
-    "left_anti"
-)
-
-# Check for any non-alphabetic values (to catch mixed types)
-display(unmapped_teams)
-
 # METADATA ********************
 
 # META {
@@ -137,7 +135,45 @@ display(unmapped_teams)
 
 from pyspark.sql import functions as F
 
-# Create a list of dictionaries for the team data
+# Anti-join with the team_mapping_df to find unmapped teams
+unexpected_teams = distinct_teams.alias("dt").join(
+    team_mapping_df.alias("tm"),
+    F.col("dt.Home_Team") == F.col("tm.Variation"),
+    "left_anti"
+)
+
+# Show teams not expected in data source (if any)
+display(unexpected_teams)
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+if unexpected_teams.isEmpty():
+    # Code to proceed
+    print("Teams are as expected. Proceeding...")
+else:
+    raise ValueError("Unexpected teams appear in Silver 1. Please check your data.")
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# MARKDOWN ********************
+
+# ## **Step 2. Maintain Team Lookup and Ensure 1:1 Relationship with Standardized Names**
+
+# CELL ********************
+
+# Team Lookup
 teams_data = [
     ["Arsenal", "https://resources.premierleague.com/premierleague/badges/t3.svg", "ARS", "#ff0000"],
     ["Aston Villa", "https://resources.premierleague.com/premierleague/badges/t7.svg", "AVL", "#490024"],
@@ -192,19 +228,6 @@ teams_data = [
     ["Wolverhampton Wanderers", "https://resources.premierleague.com/premierleague/badges/t39.svg", "WOL", "#FC891C"]
 ]
 
-# Create DataFrame
-df_teams = spark.createDataFrame(teams_data, ["Team", "ImageURL", "Abbreviations", "TeamColours"])
-
-standard_names = [(team_mapping[team],) for team in team_mapping.keys()]
-full_team_mapping_df = spark.createDataFrame(standard_names, ["StandardName"]).distinct()
-
-NotInLookup = df_teams.alias("look").join(
-    full_team_mapping_df.alias("tm"),
-    F.col("look.Team") == F.col("tm.StandardName"),
-    "left_anti"
-)
-
-display(NotInLookup)
 
 # METADATA ********************
 
@@ -214,14 +237,73 @@ display(NotInLookup)
 # META }
 
 # CELL ********************
+
+# Create DataFrame For Lookup
+df_teams = spark.createDataFrame(teams_data, ["Team", "ImageURL", "Abbreviations", "TeamColours"])
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+# DataFrame For Standard Team Names
+Standard_Teams = team_mapping_df[['Standard_Team']].distinct()
+
+
+NotInLookup = df_teams.alias("look").join(
+    Standard_Teams.alias("tm"),
+    F.col("look.Team") == F.col("tm.Standard_Team"),
+    "left_anti"
+)
+
+NotInStandardTeams = Standard_Teams.alias("tm").join(
+    df_teams.alias("look"),
+      F.col("tm.Standard_Team") == F.col("look.Team"),
+    "left_anti"
+)
+
+
+display(NotInLookup)
+display(NotInStandardTeams)
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+if NotInLookup.isEmpty() and NotInStandardTeams.isEmpty():
+    # Code to proceed
+    print("Lookup is 1:1 with Standard Team Names. Proceeding...")
+else:
+    raise ValueError("Lookup and Standard Team Names are not aligned. Please check your data.")
+
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+# Check there are no duplicate abbreviations 
 
 duplicates_df = df_teams.groupBy("Abbreviations").count().filter("count > 1")
 
 if duplicates_df.isEmpty() :
     # Code to proceed
-    print("No duplicates!")
+    print("No duplicate abbreviations!")
 else:
-    raise ValueError("One or more duplicates. Please check your data.")
+    raise ValueError("One or more duplicate abbreviations. Please check your data.")
 
 # METADATA ********************
 
@@ -230,31 +312,42 @@ else:
 # META   "language_group": "synapse_pyspark"
 # META }
 
-# CELL ********************
+# MARKDOWN ********************
 
-if NotInLookup.isEmpty() and unmapped_teams.isEmpty():
-    # Code to proceed
-    print("Both NotInLookup and unmapped_teams are empty. Proceeding...")
-else:
-    raise ValueError("One or both DataFrames are not empty. Please check your data.")
-
-# METADATA ********************
-
-# META {
-# META   "language": "python",
-# META   "language_group": "synapse_pyspark"
-# META }
+# ## **Step 3. Clean Silver 1 Tables on Team Names**
 
 # CELL ********************
+
+#Function To Clean Team Names
 
 from pyspark.sql import functions as F
+from pyspark.sql.types import StringType
 
+# Broadcasting the team mapping dictionary for efficiency
+team_mapping_broadcast = spark.sparkContext.broadcast(team_mapping)
+
+# Define the function to map team variations to standardized names and raise an error if not found
 def map_team_name(team):
-    return team_mapping.get(team, team)  # Default to original name if not found
+    mapping = team_mapping_broadcast.value
+    for standard, variations in mapping.items():
+        if team in variations:
+            return standard
+    # Raise an error if the team is not found
+    raise ValueError(f"Team name '{team}' not found in team mapping")
 
-map_team_udf = F.udf(map_team_name)
+# Register the function as a UDF (user-defined function) in Spark
+map_team_udf = F.udf(map_team_name, StringType())
 
-# Transform Home_Team and Away_Team columns
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+# Transform Team Columns
 df_cleaned_schedule = df_schedule.withColumn("Home_Team", map_team_udf(F.col("Home_Team"))) \
                          .withColumn("Away_Team", map_team_udf(F.col("Away_Team")))
 
@@ -266,6 +359,18 @@ df_cleaned_current = df_current.withColumn("Home_Team", map_team_udf(F.col("Home
 
 df_cleaned_penalties = df_penalties.withColumn("Team", map_team_udf(F.col("Team")))
 
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# MARKDOWN ********************
+
+# ## **Step 4. Load Clean Tables To Silver 2**
+
+# CELL ********************
 
 # Define the path to the lakehouse
 lakehouse_path_schedule = "abfss://c79766a3-4f30-43d3-942c-d1fa4e84b64d@onelake.dfs.fabric.microsoft.com/b4551982-caff-4d16-b567-3c06ac8fa2a6/Tables/cleanedschedule"
@@ -281,13 +386,16 @@ df_cleaned_current.write.format("delta").mode("overwrite").save(lakehouse_path_c
 df_teams.write.format("delta").mode("overwrite").save(lakehouse_path_lookup)
 df_cleaned_penalties.write.format("delta").mode("overwrite").save(lakehouse_path_penalties)
 
-
 # METADATA ********************
 
 # META {
 # META   "language": "python",
 # META   "language_group": "synapse_pyspark"
 # META }
+
+# MARKDOWN ********************
+
+# ## **Generate Calendar**
 
 # CELL ********************
 
