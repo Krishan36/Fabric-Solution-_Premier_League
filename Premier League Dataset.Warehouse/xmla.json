@@ -309,7 +309,7 @@
         "annotations": [
           {
             "name": "IsTableInBiModel",
-            "value": "True"
+            "value": "False"
           }
         ]
       },
@@ -390,7 +390,7 @@
         "annotations": [
           {
             "name": "IsTableInBiModel",
-            "value": "True"
+            "value": "False"
           }
         ]
       },
@@ -604,7 +604,7 @@
         "annotations": [
           {
             "name": "IsTableInBiModel",
-            "value": "True"
+            "value": "False"
           }
         ]
       },
@@ -643,7 +643,7 @@
         "annotations": [
           {
             "name": "IsTableInBiModel",
-            "value": "True"
+            "value": "False"
           }
         ]
       },
@@ -686,7 +686,7 @@
             "formatString": "0",
             "sourceProviderType": "bigint",
             "sourceLineageTag": "Result Id",
-            "summarizeBy": "count",
+            "summarizeBy": "sum",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -710,7 +710,7 @@
         "annotations": [
           {
             "name": "IsTableInBiModel",
-            "value": "True"
+            "value": "False"
           }
         ]
       },
@@ -870,7 +870,7 @@
         "annotations": [
           {
             "name": "IsTableInBiModel",
-            "value": "True"
+            "value": "False"
           }
         ]
       },
@@ -913,7 +913,7 @@
             "formatString": "0",
             "sourceProviderType": "bigint",
             "sourceLineageTag": "Result Id",
-            "summarizeBy": "count",
+            "summarizeBy": "sum",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -937,7 +937,7 @@
         "annotations": [
           {
             "name": "IsTableInBiModel",
-            "value": "True"
+            "value": "False"
           }
         ]
       },
@@ -1425,7 +1425,7 @@
         "annotations": [
           {
             "name": "IsTableInBiModel",
-            "value": "True"
+            "value": "False"
           }
         ]
       },
