@@ -1121,7 +1121,7 @@
             "formatString": "0",
             "sourceProviderType": "bigint",
             "sourceLineageTag": "TeamGoalsConceded",
-            "summarizeBy": "sum",
+            "summarizeBy": "none",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -1563,7 +1563,7 @@
         ]
       }
     ],
-        "relationships": [
+    "relationships": [
       {
         "name": "{{Relationship_Name}}",
         "fromTable": "Fact Point Penalties",
