@@ -8,7 +8,7 @@
       },
       {
         "name": "PBIDesktopVersion",
-        "value": "2.136.1202.0 (24.09)"
+        "value": "2.134.7446.3 (Main)"
       },
       {
         "name": "PBI_QueryOrder",
@@ -20,7 +20,7 @@
       },
       {
         "name": "PBI_ProTooling",
-        "value": "[\"DaxQueryView_Desktop\"]"
+        "value": "[\"DaxQueryView_Desktop\",\"WebModelingEdit\"]"
       }
     ],
     "culture": "en-US",
@@ -38482,6 +38482,7 @@
           },
           {
             "name": "Title: (Season)",
+            "displayFolder": "Title",
             "expression": "LASTNONBLANK('Dim Calendar'[Season],1)&\" Matches\"",
             "lineageTag": "5bf1f33f-5654-4b06-8ffd-dd15eff20ce1"
           },
@@ -38517,6 +38518,7 @@
           },
           {
             "name": "Win",
+            "displayFolder": "Wins",
             "expression": [
               "",
               "VAR Number = [Wins]",
@@ -38532,6 +38534,7 @@
           },
           {
             "name": "Loss",
+            "displayFolder": "Losses",
             "expression": [
               "",
               "VAR Number = [Losses]",
@@ -38547,6 +38550,7 @@
           },
           {
             "name": "Draw",
+            "displayFolder": "Draws",
             "expression": [
               "",
               "VAR Number = [Draws]",
@@ -38562,6 +38566,7 @@
           },
           {
             "name": "Both Teams To Scored",
+            "displayFolder": "Games Played",
             "expression": [
               "",
               "VAR Number = [Both Teams To Score]",
