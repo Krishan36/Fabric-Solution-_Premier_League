@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "Refresh Bronze to Gold"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ab2d8bc9-b1bf-4e2c-a3e4-e9da542be541"
+  }
+}

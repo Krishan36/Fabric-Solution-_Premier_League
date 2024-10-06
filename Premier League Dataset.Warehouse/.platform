@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Warehouse",
+    "displayName": "Premier League Dataset"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "57afe77b-62b4-4417-b27e-6bb7475bb2a7"
+  }
+}

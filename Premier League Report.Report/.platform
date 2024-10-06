@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Premier League Report"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "dffa9665-8eae-4293-8c5a-52eb76ab767e"
+  }
+}

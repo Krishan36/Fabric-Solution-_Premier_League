@@ -1,0 +1,207 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "707d860b-2b62-46e7-b39c-9d99010a925a",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Check_LiveSources",
+        "dependsOn": []
+      },
+      {
+        "type": "SetVariable",
+        "typeProperties": {
+          "variableName": "refresh_current",
+          "value": {
+            "value": "@json(activity('Check_LiveSources').output.result.ExitValue)['refresh_current']\n\n",
+            "type": "Expression"
+          }
+        },
+        "policy": {
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "refreshcurrent",
+        "dependsOn": [
+          {
+            "activity": "Check_LiveSources",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "SetVariable",
+        "typeProperties": {
+          "variableName": "refresh_schedule",
+          "value": {
+            "value": "@json(activity('Check_LiveSources').output.result.ExitValue)['refresh_schedule']\n",
+            "type": "Expression"
+          }
+        },
+        "policy": {
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "refreshschedule",
+        "dependsOn": [
+          {
+            "activity": "Check_LiveSources",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "IfCondition",
+        "typeProperties": {
+          "expression": {
+            "value": "@equals(variables('refresh_schedule'),'Yes')\n\n\n",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "type": "RefreshDataflow",
+              "typeProperties": {
+                "dataflowId": "671011e9-e779-4aa4-bf46-8ba5be9f79c3",
+                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
+                "notifyOption": "NoNotification"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Refresh Schedule",
+              "dependsOn": []
+            }
+          ],
+          "ifFalseActivities": []
+        },
+        "name": "Just Refresh Schedule",
+        "dependsOn": [
+          {
+            "activity": "refreshcurrent",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "refreshschedule",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "IfCondition",
+        "typeProperties": {
+          "expression": {
+            "value": "@equals(variables('refresh_current'),'Yes')\n\n\n\n",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "type": "RefreshDataflow",
+              "typeProperties": {
+                "dataflowId": "2ba008ff-b84d-4992-aa36-ea8fdc60db39",
+                "workspaceId": "c79766a3-4f30-43d3-942c-d1fa4e84b64d",
+                "notifyOption": "NoNotification"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Refresh Current Season",
+              "dependsOn": []
+            }
+          ],
+          "ifFalseActivities": []
+        },
+        "name": "Just Refresh Current Season",
+        "dependsOn": [
+          {
+            "activity": "refreshcurrent",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "refreshschedule",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "IfCondition",
+        "typeProperties": {
+          "expression": {
+            "value": "@or(equals(variables('refresh_schedule'),'Yes'),equals(variables('refresh_current'),'Yes'))",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "type": "ExecutePipeline",
+              "typeProperties": {
+                "pipeline": {
+                  "referenceName": "ab2d8bc9-b1bf-4e2c-a3e4-e9da542be541",
+                  "type": "PipelineReference"
+                },
+                "parameters": {},
+                "waitOnCompletion": true
+              },
+              "policy": {
+                "secureInput": false
+              },
+              "name": "Bronze To Gold",
+              "dependsOn": []
+            }
+          ],
+          "ifFalseActivities": []
+        },
+        "name": "Refresh Bronze To Gold",
+        "dependsOn": [
+          {
+            "activity": "Just Refresh Schedule",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Just Refresh Current Season",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ],
+    "variables": {
+      "refresh_current": {
+        "type": "String"
+      },
+      "refresh_schedule": {
+        "type": "String"
+      }
+    }
+  }
+}
