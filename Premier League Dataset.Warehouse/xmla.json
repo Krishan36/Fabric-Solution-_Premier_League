@@ -243,7 +243,7 @@
             "formatString": "0",
             "sourceProviderType": "bigint",
             "sourceLineageTag": "TeamGoalsConceded",
-            "summarizeBy": "sum",
+            "summarizeBy": "none",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -309,7 +309,7 @@
         "annotations": [
           {
             "name": "IsTableInBiModel",
-            "value": "False"
+            "value": "True"
           }
         ]
       },
@@ -324,7 +324,7 @@
             "formatString": "0",
             "sourceProviderType": "bigint",
             "sourceLineageTag": "TeamGoalsScored",
-            "summarizeBy": "sum",
+            "summarizeBy": "none",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -390,7 +390,7 @@
         "annotations": [
           {
             "name": "IsTableInBiModel",
-            "value": "False"
+            "value": "True"
           }
         ]
       },
@@ -604,7 +604,7 @@
         "annotations": [
           {
             "name": "IsTableInBiModel",
-            "value": "False"
+            "value": "True"
           }
         ]
       },
@@ -643,7 +643,7 @@
         "annotations": [
           {
             "name": "IsTableInBiModel",
-            "value": "False"
+            "value": "True"
           }
         ]
       },
@@ -710,7 +710,7 @@
         "annotations": [
           {
             "name": "IsTableInBiModel",
-            "value": "False"
+            "value": "True"
           }
         ]
       },
@@ -870,7 +870,7 @@
         "annotations": [
           {
             "name": "IsTableInBiModel",
-            "value": "False"
+            "value": "True"
           }
         ]
       },
@@ -937,7 +937,7 @@
         "annotations": [
           {
             "name": "IsTableInBiModel",
-            "value": "False"
+            "value": "True"
           }
         ]
       },
@@ -1106,7 +1106,7 @@
             "formatString": "0",
             "sourceProviderType": "bigint",
             "sourceLineageTag": "TeamGoalsScored",
-            "summarizeBy": "sum",
+            "summarizeBy": "none",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -1358,7 +1358,7 @@
             "formatString": "0",
             "sourceProviderType": "bigint",
             "sourceLineageTag": "Match Number",
-            "summarizeBy": "sum",
+            "summarizeBy": "none",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -1401,7 +1401,7 @@
             "formatString": "0",
             "sourceProviderType": "bigint",
             "sourceLineageTag": "TotalGoalsInMatch",
-            "summarizeBy": "sum",
+            "summarizeBy": "none",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -1425,7 +1425,7 @@
         "annotations": [
           {
             "name": "IsTableInBiModel",
-            "value": "False"
+            "value": "True"
           }
         ]
       },
@@ -1561,6 +1561,144 @@
             "value": "False"
           }
         ]
+      }
+    ],
+        "relationships": [
+      {
+        "name": "{{Relationship_Name}}",
+        "fromTable": "Fact Point Penalties",
+        "fromColumn": "Match_Number",
+        "toTable": "Dim Match Number",
+        "toColumn": "Match Number",
+        "relyOnReferentialIntegrity": true,
+        "securityFilteringBehavior": "none"
+      },
+      {
+        "name": "{{Relationship_Name}}1",
+        "fromTable": "Fact Point Penalties",
+        "fromColumn": "Date",
+        "toTable": "Dim Calendar",
+        "toColumn": "Date",
+        "relyOnReferentialIntegrity": true,
+        "securityFilteringBehavior": "none"
+      },
+      {
+        "name": "{{Relationship_Name}}10",
+        "fromTable": "Fact Premier League",
+        "fromColumn": "Result",
+        "toTable": "Dim Team Result",
+        "toColumn": "Result",
+        "relyOnReferentialIntegrity": true
+      },
+      {
+        "name": "{{Relationship_Name}}11",
+        "fromTable": "Fact Premier League",
+        "fromColumn": "Full_Time_Result",
+        "toTable": "Dim Match Result",
+        "toColumn": "Result",
+        "relyOnReferentialIntegrity": true
+      },
+      {
+        "name": "{{Relationship_Name}}12",
+        "fromTable": "Fact Premier League",
+        "fromColumn": "Match Number",
+        "toTable": "Dim Match Number",
+        "toColumn": "Match Number",
+        "relyOnReferentialIntegrity": true
+      },
+      {
+        "name": "{{Relationship_Name}}13",
+        "fromTable": "Fact Premier League",
+        "fromColumn": "TotalGoalsInMatch",
+        "toTable": "Dim Match Goals",
+        "toColumn": "TotalGoalsInMatch",
+        "relyOnReferentialIntegrity": true
+      },
+      {
+        "name": "{{Relationship_Name}}14",
+        "fromTable": "Fact Premier League",
+        "fromColumn": "TeamGoalsScored",
+        "toTable": "Dim Goal Scored",
+        "toColumn": "TeamGoalsScored",
+        "relyOnReferentialIntegrity": true
+      },
+      {
+        "name": "{{Relationship_Name}}15",
+        "fromTable": "Fact Premier League",
+        "fromColumn": "TeamGoalsConceded",
+        "toTable": "Dim Goal Conceded",
+        "toColumn": "TeamGoalsConceded",
+        "relyOnReferentialIntegrity": true
+      },
+      {
+        "name": "{{Relationship_Name}}2",
+        "fromTable": "Fact Premier League",
+        "fromColumn": "Match_Date",
+        "toTable": "Dim Calendar",
+        "toColumn": "Date",
+        "relyOnReferentialIntegrity": true,
+        "securityFilteringBehavior": "none"
+      },
+      {
+        "name": "{{Relationship_Name}}3",
+        "fromTable": "Dim Team Lookup",
+        "fromColumn": "Team",
+        "toTable": "Tooltip Team Lookup",
+        "toColumn": "Team",
+        "relyOnReferentialIntegrity": true,
+        "securityFilteringBehavior": "none"
+      },
+      {
+        "name": "{{Relationship_Name}}4",
+        "fromTable": "Fact Point Penalties",
+        "fromColumn": "Team",
+        "toTable": "Dim Team Lookup",
+        "toColumn": "Team",
+        "relyOnReferentialIntegrity": true,
+        "securityFilteringBehavior": "none"
+      },
+      {
+        "name": "{{Relationship_Name}}5",
+        "fromTable": "Fact Premier League",
+        "fromColumn": "Opposition",
+        "toTable": "Dim Opposition",
+        "toColumn": "Opponent",
+        "relyOnReferentialIntegrity": true,
+        "securityFilteringBehavior": "none"
+      },
+      {
+        "name": "{{Relationship_Name}}6",
+        "fromTable": "Fact Premier League",
+        "fromColumn": "Away_Team",
+        "toTable": "Dim Away Team",
+        "toColumn": "Away Team",
+        "relyOnReferentialIntegrity": true,
+        "securityFilteringBehavior": "none"
+      },
+      {
+        "name": "{{Relationship_Name}}7",
+        "fromTable": "Fact Premier League",
+        "fromColumn": "Home_Team",
+        "toTable": "Dim Home Team",
+        "toColumn": "Home Team",
+        "relyOnReferentialIntegrity": true,
+        "securityFilteringBehavior": "none"
+      },
+      {
+        "name": "{{Relationship_Name}}8",
+        "fromTable": "Fact Premier League",
+        "fromColumn": "TeamIsHome",
+        "toTable": "Dim H-A",
+        "toColumn": "Home / Away",
+        "relyOnReferentialIntegrity": true
+      },
+      {
+        "name": "{{Relationship_Name}}9",
+        "fromTable": "Fact Premier League",
+        "fromColumn": "Team",
+        "toTable": "Dim Team Lookup",
+        "toColumn": "Team",
+        "relyOnReferentialIntegrity": true
       }
     ],
     "expressions": [
